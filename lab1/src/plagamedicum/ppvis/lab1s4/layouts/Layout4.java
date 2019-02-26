@@ -12,12 +12,12 @@ import javafx.scene.control.CheckBox;
 
 public class Layout4 extends LayoutBase {
 	
-	private TextField 	textBox = new TextField();
-	private Button 		button = new Button();
-	private CheckBox	chBox1 = new CheckBox(),
-						chBox2 = new CheckBox(),
-						chBox3 = new CheckBox();
-	private ObservableList<CheckBox> chButtonArray = FXCollections.observableArrayList();
+	private TextField 	textBox;
+	private Button 		button;
+	private CheckBox	chBox1,
+						chBox2,
+						chBox3;
+	private ObservableList<CheckBox> chButtonArray;
 	
 	public Layout4() {
 		
@@ -28,10 +28,16 @@ public class Layout4 extends LayoutBase {
 						ERROR_TITLE = "?!?!?!!?!?!",
 						ERROR_CONTENT = "There is no specified element here!";
 		
+		textBox = new TextField();
+		button = new Button();
 		button.setText(BUTTON_NAME);
+		chBox1 = new CheckBox();
 		chBox1.setText(CHB1_NAME);
+		chBox2 = new CheckBox();
 		chBox2.setText(CHB2_NAME);
+		chBox3 = new CheckBox();
 		chBox3.setText(CHB3_NAME);		
+		chButtonArray = FXCollections.observableArrayList();
 		chButtonArray.addAll(chBox1,
 							 chBox2,
 							 chBox3);

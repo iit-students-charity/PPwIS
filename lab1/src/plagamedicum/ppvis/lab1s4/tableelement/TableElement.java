@@ -31,7 +31,7 @@ public class TableElement {
 		return pos2;
 	}
 	
-	public void left() {
+	public void goLeft() {
 		
 		if(pos2.get() != EMPTY) {
 			pos1.set(pos2.get());;
@@ -39,7 +39,7 @@ public class TableElement {
 		}
 	}
 	
-	public void right() {
+	public void goRight() {
 		
 		if(pos1.get() != EMPTY) {
 			pos2.set(pos1.get());;

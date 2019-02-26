@@ -12,13 +12,13 @@ import javafx.scene.layout.VBox;
 
 public class Layout3 extends LayoutBase {
 	
-	private TextField 			textBox = new TextField();
-	private Button 				button = new Button();
-	private RadioButton 		radButton1 = new RadioButton(),
-								radButton2 = new RadioButton(),
-								radButton3 = new RadioButton();
-	private ToggleGroup 		radButtonFamily = new ToggleGroup();
-	private ObservableList<RadioButton> radButtonArray = FXCollections.observableArrayList();
+	private TextField 			textBox;
+	private Button 				button;
+	private RadioButton 		radButton1,
+								radButton2,
+								radButton3;
+	private ToggleGroup 		radButtonFamily;
+	private ObservableList<RadioButton> radButtonArray;
 	
 	public Layout3() {
 		
@@ -29,13 +29,20 @@ public class Layout3 extends LayoutBase {
 						ERROR_TITLE = "!!!!!!!!!",
 						ERROR_CONTENT = "Can't find specified element!";
 		
+		textBox = new TextField();
+		button = new Button();
 		button.setText(BUTTON_NAME);
+		radButton1 = new RadioButton();
 		radButton1.setText(RADB1_NAME);
+		radButton2 = new RadioButton();
 		radButton2.setText(RADB2_NAME);
+		radButton3 = new RadioButton();
 		radButton3.setText(RADB3_NAME);
+		radButtonArray = FXCollections.observableArrayList();
 		radButtonArray.addAll(radButton1,
 							  radButton2,
 							  radButton3);
+		radButtonFamily = new ToggleGroup();
 		radButtonFamily.getToggles().addAll(radButtonArray);
 		
 		

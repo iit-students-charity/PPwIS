@@ -14,27 +14,32 @@ import plagamedicum.ppvis.lab1s4.tableelement.*;
 
 public class Layout5 extends LayoutBase {
 	
-	private TextField 	textBox = new TextField();
-	private Button		addButton = new Button(),
-						leftButton = new Button(),
-						rightButton = new Button();
-	private HBox 		buttons = new HBox();
-	private TableView<TableElement> table;
+	private TextField 	textBox;
+	private Button		addButton,
+						leftButton,
+						rightButton;
+	private HBox 		buttons;
+	private TableView<TableElement> 			table;
 	private TableColumn<TableElement, String> 	column1,
 												column2;
 	ObservableList<TableElement> tableElementArray = FXCollections.observableArrayList();
 	
 	public Layout5() {
 		
-		final String	addButton_NAME = "v",
+		final String	ADD_BUTTON_NAME = "v",
 						LEFT_BUTTON_NAME = "<",
 						RIGHT_BUTTON_NAME = ">",
 						COLUMN1_NAME = "1",
 						COLUMN2_NAME = "2";
 		
-		addButton.setText(addButton_NAME);
+		textBox = new TextField();	
+		addButton = new Button();
+		addButton.setText(ADD_BUTTON_NAME);
+		leftButton = new Button();
 		leftButton.setText(LEFT_BUTTON_NAME);
-		rightButton.setText(RIGHT_BUTTON_NAME);		
+		rightButton = new Button();
+		rightButton.setText(RIGHT_BUTTON_NAME);
+		buttons = new HBox();	
 		buttons.getChildren().addAll(addButton,
 									 leftButton,
 									 rightButton);
@@ -49,16 +54,14 @@ public class Layout5 extends LayoutBase {
 		column2.setMinWidth(123);
 		
 		table = new TableView<>(tableElementArray);
-		table.getColumns().addAll(column1,
-								  column2);
+		table.getColumns().add(column1);
+		table.getColumns().add(column2);
 		table.setMaxHeight(150);
 		
 		aligner = new VBox();
 		aligner.getChildren().addAll(textBox,
 									 buttons,
 									 table);
-		
-		table.setItems(tableElementArray);
 		
 		addButton.setOnAction(ae -> {
 			
@@ -76,7 +79,7 @@ public class Layout5 extends LayoutBase {
 			TableElement selectedElement = table.getSelectionModel().getSelectedItem();
 			
 			if(selectedElement != null) {
-				selectedElement.left();
+				selectedElement.goLeft();
 			}
 		});
 
@@ -85,7 +88,7 @@ public class Layout5 extends LayoutBase {
 			TableElement selectedElement = table.getSelectionModel().getSelectedItem();
 			
 			if(selectedElement != null) {
-				selectedElement.right();
+				selectedElement.goRight();
 			}
 		});
 	}

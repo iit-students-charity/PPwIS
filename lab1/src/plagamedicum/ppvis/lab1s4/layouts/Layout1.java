@@ -11,19 +11,21 @@ import javafx.scene.layout.VBox;
 
 public class Layout1 extends LayoutBase {
 	
-	private TextField 			textBox = new TextField();
-	private Button 				button = new Button();
-	private ComboBox<String> 	comBox = new ComboBox<String>();
-	private HBox 				horizontal = new HBox();
+	private TextField 			textBox;
+	private Button 				button;
+	private ComboBox<String> 	comBox;
+	private HBox 				horizontal;
 	
 	public Layout1() {
 		
 		final String	BUTTON_NAME = "CLICK ON ME";
 		
+		textBox = new TextField();
+		button = new Button();
 		button.setText(BUTTON_NAME);
-		
+		comBox = new ComboBox<String>();
 		comBox.setMaxWidth(75);
-		
+		horizontal = new HBox();
 		horizontal.getChildren().addAll(comBox,
 										button);
 		
