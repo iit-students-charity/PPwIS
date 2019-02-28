@@ -6,11 +6,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.CheckBox;
 
 
-public class Layout4 extends LayoutBase {
+public class Layout4 {
 	
 	private TextField 	textBox;
 	private Button 		button;
@@ -18,6 +19,7 @@ public class Layout4 extends LayoutBase {
 						chBox2,
 						chBox3;
 	private ObservableList<CheckBox> chButtonArray;
+	private Pane 		aligner;
 	
 	public Layout4() {
 		
@@ -66,5 +68,10 @@ public class Layout4 extends LayoutBase {
 				error.show();
 			}
 		});
+	}
+	
+	public Pane getAligner() {
+		
+		return aligner;
 	}
 }

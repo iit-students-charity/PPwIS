@@ -1,18 +1,20 @@
 package plagamedicum.ppvis.lab1s4.layouts;
 
-import javafx.scene.control.TextField;
+import javafx.geometry.Pos;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import plagamedicum.ppvis.lab1s4.tableelement.*;
 
 
-public class Layout5 extends LayoutBase {
+public class Layout5 {
 	
 	private TextField 	textBox;
 	private Button		addButton,
@@ -23,6 +25,7 @@ public class Layout5 extends LayoutBase {
 	private TableColumn<TableElement, String> 	column1,
 												column2;
 	ObservableList<TableElement> tableElementArray = FXCollections.observableArrayList();
+	private Pane 		aligner;
 	
 	public Layout5() {
 		
@@ -39,7 +42,8 @@ public class Layout5 extends LayoutBase {
 		leftButton.setText(LEFT_BUTTON_NAME);
 		rightButton = new Button();
 		rightButton.setText(RIGHT_BUTTON_NAME);
-		buttons = new HBox();	
+		buttons = new HBox();
+		buttons.setAlignment(Pos.CENTER);
 		buttons.getChildren().addAll(addButton,
 									 leftButton,
 									 rightButton);
@@ -91,5 +95,10 @@ public class Layout5 extends LayoutBase {
 				selectedElement.goRight();
 			}
 		});
+	}
+	
+	public Pane getAligner() {
+		
+		return aligner;
 	}
 }

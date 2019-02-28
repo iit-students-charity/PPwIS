@@ -19,10 +19,10 @@ public class Lab1 extends Application {
 	}
 
 	@Override
-	public void start(Stage primaryStage) throws Exception {
+	public void start(Stage primaryStage) {
 		
 		final String 	STAGE_TITLE = "Lab1";
-		final int 		SCENE_WIDTH = 1050, 
+		final int 		SCENE_WIDTH = 1350, 
 						SCENE_HEIGHT = 500;
 		final double 	HORIZ_GAP 	= 10,
 						VERT_GAP 	= 15;
@@ -32,6 +32,7 @@ public class Lab1 extends Application {
 		Layout3	l3 = new Layout3();
 		Layout4	l4 = new Layout4();
 		Layout5	l5 = new Layout5();
+		Layout6 l6 = new Layout6();
 		
 		root = new FlowPane(HORIZ_GAP, VERT_GAP);
 		root.setAlignment(Pos.CENTER);
@@ -39,12 +40,12 @@ public class Lab1 extends Application {
 								  l2.getAligner(),
 								  l3.getAligner(),
 								  l4.getAligner(),
-								  l5.getAligner());		
+								  l5.getAligner(),
+								  l6.getAligner());		
 
 		Scene scene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
 		primaryStage.setTitle(STAGE_TITLE);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
-
 }

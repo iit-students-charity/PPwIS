@@ -8,9 +8,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.RadioButton;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
-public class Layout3 extends LayoutBase {
+public class Layout3 {
 	
 	private TextField 			textBox;
 	private Button 				button;
@@ -19,6 +20,7 @@ public class Layout3 extends LayoutBase {
 								radButton3;
 	private ToggleGroup 		radButtonFamily;
 	private ObservableList<RadioButton> radButtonArray;
+	private Pane 				aligner;
 	
 	public Layout3() {
 		
@@ -71,5 +73,10 @@ public class Layout3 extends LayoutBase {
 				error.show();
 			}
 		});
+	}
+	
+	public Pane getAligner() {
+		
+		return aligner;
 	}
 }

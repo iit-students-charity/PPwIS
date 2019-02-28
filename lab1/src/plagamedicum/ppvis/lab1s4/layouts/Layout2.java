@@ -3,15 +3,17 @@ package plagamedicum.ppvis.lab1s4.layouts;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 
-public class Layout2 extends LayoutBase {
+public class Layout2 {
 	
 	private Button 		button1, 
 						button2;
 	private TextField 	textBox;
 	private HBox 		buttons;
+	private Pane 		aligner;
 
 	public Layout2() {
 		
@@ -50,5 +52,10 @@ public class Layout2 extends LayoutBase {
 			button1.setText(button2Text);
 			button2.setText(button1Text);
 		});
+	}
+	
+	public Pane getAligner() {
+		
+		return aligner;
 	}
 }

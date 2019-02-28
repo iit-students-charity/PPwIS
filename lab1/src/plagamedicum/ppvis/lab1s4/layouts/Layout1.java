@@ -6,15 +6,17 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 
-public class Layout1 extends LayoutBase {
+public class Layout1 {
 	
 	private TextField 			textBox;
 	private Button 				button;
 	private ComboBox<String> 	comBox;
 	private HBox 				horizontal;
+	private Pane 				aligner;
 	
 	public Layout1() {
 		
@@ -46,7 +48,8 @@ public class Layout1 extends LayoutBase {
 							true : false;
 			
 			if(elementExists == false) {
-				comBox.getItems().add(textFromTextBox);	
+				comBox.getItems().add(textFromTextBox);
+				comBox.setValue(textFromTextBox);
 			} else {
 				Alert error = new Alert(AlertType.WARNING);
 				error.setTitle(ERROR_TITLE);
@@ -54,5 +57,10 @@ public class Layout1 extends LayoutBase {
 				error.show();
 			}
 		});
+	}
+	
+	public Pane getAligner() {
+		
+		return aligner;
 	}
 }
