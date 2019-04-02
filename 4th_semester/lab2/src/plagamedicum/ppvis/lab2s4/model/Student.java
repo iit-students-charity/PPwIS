@@ -1,72 +1,50 @@
 package plagamedicum.ppvis.lab2s4.model;
 
-
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
+import java.util.List;
 
 public class Student {
-	private SimpleStringProperty 	 snp;
-	private SimpleIntegerProperty 	 group;
-	private SimpleStringProperty[]	 exam;
-	private SimpleIntegerProperty[]	 examScore;
-
-	public Student() {
+	private String 	snp,
+					group;
+	Exam 			exam;
+	public Student(){
 
 	}
 
-	public Student(String snp, int group,
-				   String[] exam, int[] examScore){
-		this.snp = new SimpleStringProperty(snp);
-		this.group = new SimpleIntegerProperty(group);
-		this.exam = new SimpleStringProperty[exam.length];
-		this.examScore = new SimpleIntegerProperty[examScore.length];
-		for(int i = 0; i< exam.length; i++){
-			this.exam[i] = new SimpleStringProperty(exam[i]);
-			this.examScore[i] = new SimpleIntegerProperty(examScore[i]);
-		}
+	public Student(String snp, String group,
+				   List examName, List examScore){
+		this.snp = snp;
+		this.group = group;
+		this.exam.setExamName(examName);
+		this.exam.setExamScore(examScore);
 	}
 	
 	public String getSnp(){
-		return snp.get();
+		return snp;
 	}
 
 	public void setSnp(String snp){
-		this.snp.set(snp);
+		this.snp = snp;
 	}
 
-	public int getGroup(){
-		return group.get();
+	public String getGroup(){
+		return group;
 	}
 
-	public void setGroup(int group){
-		this.group.set(group);
+	public void setGroup(String group){
+		this.group = group;
 	}
-	
-	public String[] getExam(){
-		String[] exam = new String[this.exam.length];
-		for(int i = 0; i< exam.length; i++){
-			exam[i] = this.exam[i].get();
-		}
+
+	public Exam getExam(){
 		return exam;
 	}
 
-	public void setExam(String[] exam){
-		for(int i = 0; i < exam.length; i++) {
-			this.exam[i].set(exam[i]);
-		}
+	/*
+	public int getExamNumber(){
+		return examNumber;
 	}
 
-	public int[] getExamScore(){
-		int[] examScore = new int[this.examScore.length];
-		for(int i = 0; i< examScore.length; i++){
-			examScore[i] = this.examScore[i].get();
-		}
-		return examScore;
+	public void setExamNumber(){
+		this.examNumber = examNumber;
 	}
-
-	public void setExamScore(int[] examScore){
-		for(int i = 0; i < examScore.length; i++) {
-			this.examScore[i].set(examScore[i]);
-		}
-	}
+	*/
 }

@@ -42,7 +42,7 @@ public class MainScene {
                  toLeftButton   = new Button(TO_LEFT_BUTTON_LABEL),
                  toRightButton  = new Button(TO_RIGHT_BUTTON_LABEL),
                  toEndButton    = new Button(TO_END_BUTTON_LABEL);
-        MainTable table = new MainTable();
+        MainTable mainTable = new MainTable();
 
 
         root = new VBox();
@@ -65,7 +65,7 @@ public class MainScene {
 
         root.getChildren().addAll(menuBar,
                                   instruments,
-                                  table.get());
+                                  mainTable.get());
 
         scene	= new Scene(root);
 	}
