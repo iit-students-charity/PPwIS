@@ -1,23 +1,25 @@
 package plagamedicum.ppvis.lab2s4.model;
 
-import java.util.List;
+import java.util.ArrayList;
+
 
 public class Student {
+	private static int examNumber = 8;
 	private String 	snp,
 					group;
-	Exam 			exam;
-	public Student(){
-
-	}
+	private ArrayList<Exam> exam;
 
 	public Student(String snp, String group,
-				   List examName, List examScore){
+				   ArrayList<Exam> exam){
 		this.snp = snp;
 		this.group = group;
-		this.exam.setExamName(examName);
-		this.exam.setExamScore(examScore);
+		this.exam = exam;
 	}
-	
+
+	public static int getExamNumber(){
+		return examNumber;
+	}
+
 	public String getSnp(){
 		return snp;
 	}
@@ -34,17 +36,11 @@ public class Student {
 		this.group = group;
 	}
 
-	public Exam getExam(){
+	public ArrayList<Exam> getExam(){
 		return exam;
 	}
 
-	/*
-	public int getExamNumber(){
-		return examNumber;
+	public void setExam(ArrayList<Exam> exam){
+		this.exam = exam;
 	}
-
-	public void setExamNumber(){
-		this.examNumber = examNumber;
-	}
-	*/
 }
