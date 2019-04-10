@@ -3,16 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Lab2/plagamedicum/ppvis/lab2s4/controller/Controller.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Lab2/plagamedicum/ppvis/lab2s4/model/Model.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab2/META-INF/lab2.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab2/plagamedicum/ppvis/lab2s4/model/Exam.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Lab2/plagamedicum/ppvis/lab2s4/model/Exam.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab2/plagamedicum/ppvis/lab2s4/model/Student.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Lab2/plagamedicum/ppvis/lab2s4/model/Student.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Lab2/plagamedicum/ppvis/lab2s4/view/MainScene.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Lab2/plagamedicum/ppvis/lab2s4/view/MainScene.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/controller/Controller.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/model/Exam.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/model/Exam.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/model/Model.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Lab2/plagamedicum/ppvis/lab2s4/view/MainTable.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/model/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/model/Student.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/view/MainScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/view/MainScene.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/view/MainTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/view/MainTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/view/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/view/MainWindow.java" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -87,13 +85,27 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/view/MainScene.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="799">
+              <caret line="62" selection-start-line="62" selection-end-line="62" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/view/MainTable.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="392">
-              <caret line="46" column="12" lean-forward="true" selection-start-line="46" selection-start-column="12" selection-end-line="46" selection-end-column="12" />
+            <state relative-caret-position="337">
+              <caret line="64" column="63" selection-start-line="64" selection-start-column="63" selection-end-line="64" selection-end-column="63" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#2907#2908#0" expanded="true" />
+                <element signature="e#2935#2936#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -102,8 +114,14 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/model/Student.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="40" column="5" lean-forward="true" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
+            <state relative-caret-position="595">
+              <caret line="49" selection-start-line="49" selection-end-line="49" />
+              <folding>
+                <element signature="e#759#760#0" expanded="true" />
+                <element signature="e#781#782#0" expanded="true" />
+                <element signature="e#836#837#0" expanded="true" />
+                <element signature="e#875#876#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -111,8 +129,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/model/Exam.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="26" column="5" lean-forward="true" selection-start-line="12" selection-start-column="4" selection-end-line="26" selection-end-column="5" />
+            <state relative-caret-position="340">
+              <caret line="28" selection-start-line="28" selection-end-line="28" />
             </state>
           </provider>
         </entry>
@@ -146,9 +164,9 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/model/Exam.java" />
+        <option value="$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/view/MainWindow.java" />
         <option value="$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/view/MainScene.java" />
         <option value="$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/model/Student.java" />
-        <option value="$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/view/MainWindow.java" />
         <option value="$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/view/MainTable.java" />
       </list>
     </option>
@@ -361,12 +379,12 @@
       <workItem from="1554204453639" duration="6743000" />
       <workItem from="1554223973361" duration="14373000" />
       <workItem from="1554650444288" duration="1034000" />
-      <workItem from="1554652161408" duration="16718000" />
+      <workItem from="1554652161408" duration="28127000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="71309000" />
+    <option name="totallyTimeSpent" value="82718000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -381,7 +399,7 @@
     <frame x="-7" y="-7" width="1550" height="878" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.15100671" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.15100671" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" />
       <window_info id="Designer" order="3" />
@@ -401,7 +419,7 @@
       <window_info anchor="bottom" id="Changes" order="10" />
       <window_info anchor="bottom" id="Profiler" order="11" />
       <window_info anchor="bottom" id="Event Log" order="12" weight="0.3297587" />
-      <window_info anchor="bottom" id="Messages" order="13" weight="0.3297587" />
+      <window_info active="true" anchor="bottom" id="Messages" order="13" visible="true" weight="0.3297587" />
       <window_info anchor="bottom" id="Docker" order="14" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="15" />
       <window_info anchor="bottom" id="Terminal" order="16" weight="0.3297587" />
@@ -561,20 +579,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/model/Student.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="40" column="5" lean-forward="true" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/model/Exam.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="26" column="5" lean-forward="true" selection-start-line="12" selection-start-column="4" selection-end-line="26" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../../SDIS_Subdom_Dialog_search/SDIS_Subdom_Dialog_search.iml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -582,16 +586,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2871">
           <caret line="80" column="13" selection-start-line="80" selection-start-column="13" selection-end-line="80" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/view/MainScene.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="469">
-          <caret line="45" column="28" selection-start-line="45" selection-start-column="28" selection-end-line="45" selection-end-column="28" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -607,12 +601,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/view/MainTable.java">
+    <entry file="file://$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/view/MainScene.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="392">
-          <caret line="46" column="12" lean-forward="true" selection-start-line="46" selection-start-column="12" selection-end-line="46" selection-end-column="12" />
+        <state relative-caret-position="799">
+          <caret line="62" selection-start-line="62" selection-end-line="62" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/model/Student.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="595">
+          <caret line="49" selection-start-line="49" selection-end-line="49" />
+          <folding>
+            <element signature="e#759#760#0" expanded="true" />
+            <element signature="e#781#782#0" expanded="true" />
+            <element signature="e#836#837#0" expanded="true" />
+            <element signature="e#875#876#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/model/Exam.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="28" selection-start-line="28" selection-end-line="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/view/MainTable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="337">
+          <caret line="64" column="63" selection-start-line="64" selection-start-column="63" selection-end-line="64" selection-end-column="63" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2907#2908#0" expanded="true" />
+            <element signature="e#2935#2936#0" expanded="true" />
           </folding>
         </state>
       </provider>

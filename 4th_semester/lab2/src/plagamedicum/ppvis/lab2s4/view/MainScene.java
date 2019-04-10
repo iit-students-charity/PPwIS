@@ -60,6 +60,7 @@ public class MainScene {
                                    deleteMenuItem);
         menuBar.getMenus().addAll(fileMenu,
                                   editMenu);
+
         pagination.getChildren().addAll(toBeginButton,  //TODO: Pages Counter
                                         toLeftButton,
                                         toRightButton,

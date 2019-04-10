@@ -43,4 +43,12 @@ public class Student {
 	public void setExam(ArrayList<Exam> exam){
 		this.exam = exam;
 	}
+
+	public String getIExamName(int i){
+		return exam.get(i).getExamName();
+	}
+
+	public int getIExamScore(int i){
+		return exam.get(i).getExamScore();
+	}
 }
