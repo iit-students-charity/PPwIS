@@ -4,16 +4,16 @@ import java.util.ArrayList;
 
 
 public class Student {
-	private static int examNumber = 8;
+	private static int examNumber = 8; //TODO: HITLER >:3
 	private String 	snp,
 					group;
 	private ArrayList<Exam> exam;
 
 	public Student(String snp, String group,
 				   ArrayList<Exam> exam){
-		this.snp = snp;
+		this.snp   = snp;
 		this.group = group;
-		this.exam = exam;
+		this.exam  = exam;
 	}
 
 	public static int getExamNumber(){
@@ -44,11 +44,11 @@ public class Student {
 		this.exam = exam;
 	}
 
-	public String getIExamName(int i){
-		return exam.get(i).getExamName();
+	public String getExamName(int i){
+		return exam.get(i).getName();
 	}
 
-	public int getIExamScore(int i){
-		return exam.get(i).getExamScore();
+	public int getExamScore(int i){
+		return exam.get(i).getScore();
 	}
 }

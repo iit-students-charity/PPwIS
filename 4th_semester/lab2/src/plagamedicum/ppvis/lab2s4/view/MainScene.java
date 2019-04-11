@@ -1,30 +1,32 @@
 package plagamedicum.ppvis.lab2s4.view;
 
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
-import javafx.scene.control.Menu;
-import javafx.scene.control.SeparatorMenuItem;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 
 import javafx.scene.layout.VBox;
+import plagamedicum.ppvis.lab2s4.Controller.Controller;
+import plagamedicum.ppvis.lab2s4.model.Student;
 
 
 public class MainScene {
-    private Scene scene;
-	private VBox root;
+    private Scene     scene;
+	private VBox      root;
+	private MainTable mainTable;
+    private ObservableList<Student> studentList;
 
-	public MainScene() {
-	    final String FILE_MENU_LABEL        = "File",
-                     NEW_MENU_ITEM_LABEL    = "New",
-                     SAVE_MENU_ITEM_LABEL   = "Save",
-                     OPEN_MENU_ITEM_LABEL   = "Open",
-                     EXIT_MENU_ITEM_LABEL   = "Exit",
-                     EDIT_MENU_LABEL        = "Edit",
-                     SEARCH_MENU_ITEM_LABEL = "Search",
-                     DELETE_MENU_ITEM_LABEL = "Delete",
+	public MainScene(Controller controller) {
+	    final String FILE_MENU_LABEL        = "Файл",
+                     NEW_MENU_ITEM_LABEL    = "Новы",
+                     SAVE_MENU_ITEM_LABEL   = "Захаваць",
+                     OPEN_MENU_ITEM_LABEL   = "Адкрыць",
+                     EXIT_MENU_ITEM_LABEL   = "Выйсці",
+                     EDIT_MENU_LABEL        = "Рэдагаваць",
+                     SEARCH_MENU_ITEM_LABEL = "Шукаць",
+                     DELETE_MENU_ITEM_LABEL = "Выдаліць",
+                     ADD_BUTTON_LABEL       = "Дадаць",
 	                 TO_BEGIN_BUTTON_LABEL  = "<<",
                      TO_LEFT_BUTTON_LABEL   = "<",
                      TO_RIGHT_BUTTON_LABEL  = ">",
@@ -38,15 +40,15 @@ public class MainScene {
         Menu     fileMenu       = new Menu(FILE_MENU_LABEL),
                  editMenu       = new Menu(EDIT_MENU_LABEL);
         MenuBar  menuBar        = new MenuBar();
-        Button   toBeginButton  = new Button(TO_BEGIN_BUTTON_LABEL),
+        Label    pagesCounter   = new Label();
+        Button   addButton      = new Button(ADD_BUTTON_LABEL),
+                 toBeginButton  = new Button(TO_BEGIN_BUTTON_LABEL),
                  toLeftButton   = new Button(TO_LEFT_BUTTON_LABEL),
                  toRightButton  = new Button(TO_RIGHT_BUTTON_LABEL),
                  toEndButton    = new Button(TO_END_BUTTON_LABEL);
-        //TODO: MORE BUTTONS!!!!
         //TODO: Some windows
         HBox     instruments    = new HBox(),
                  pagination     = new HBox();
-        MainTable mainTable     = new MainTable();
 
         root = new VBox();
 
@@ -61,8 +63,12 @@ public class MainScene {
         menuBar.getMenus().addAll(fileMenu,
                                   editMenu);
 
-        pagination.getChildren().addAll(toBeginButton,  //TODO: Pages Counter
+        this.studentList = controller.getStudentList();
+        mainTable = new MainTable(this.studentList);
+
+        pagination.getChildren().addAll(toBeginButton,
                                         toLeftButton,
+                                        pagesCounter,
                                         toRightButton,
                                         toEndButton);
 

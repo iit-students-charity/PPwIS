@@ -2,27 +2,27 @@ package plagamedicum.ppvis.lab2s4.model;
 
 
 public class Exam {
-    private String  examName;
-    private int     examScore;
+    private String name;
+    private int score;
 
-    public Exam(String examName, int examScore) {
-        this.examName = examName;
-        this.examScore = examScore;
+    public Exam(String name, int score) {
+        this.name = name;
+        this.score = score;
     }
 
-    public String getExamName(){
-        return examName;
+    public String getName(){
+        return name;
     }
 
-    public void setExamName(String examName){
-        this.examName = examName;
+    public void setName(String name){
+        this.name = name;
     }
 
-    public int getExamScore(){
-        return examScore;
+    public int getScore(){
+        return score;
     }
 
-    public void setExamScore(int examScore){
-        this.examScore = examScore;
+    public void setScore(int score){
+        this.score = score;
     }
 }
