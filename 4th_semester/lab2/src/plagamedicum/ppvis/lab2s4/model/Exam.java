@@ -1,6 +1,5 @@
 package plagamedicum.ppvis.lab2s4.model;
 
-
 public class Exam {
     private String name;
     private int score;

@@ -5,13 +5,17 @@ import plagamedicum.ppvis.lab2s4.model.Model;
 import plagamedicum.ppvis.lab2s4.model.Student;
 
 public class Controller {
-    private ObservableList<Student> studentList;
+    private Model model;
 
     public Controller(Model model){
-        this.studentList = model.getStudentList();
+        this.model = model;
     }
 
     public ObservableList<Student> getStudentList(){
-        return studentList;
+        return model.getStudentList();
+    }
+
+    public int getExamNumber(){
+        return model.getExamNumber();
     }
 }

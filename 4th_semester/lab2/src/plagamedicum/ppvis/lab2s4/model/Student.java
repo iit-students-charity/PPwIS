@@ -2,9 +2,7 @@ package plagamedicum.ppvis.lab2s4.model;
 
 import java.util.ArrayList;
 
-
 public class Student {
-	private static int examNumber = 8; //TODO: HITLER >:3
 	private String 	snp,
 					group;
 	private ArrayList<Exam> exam;
@@ -14,10 +12,6 @@ public class Student {
 		this.snp   = snp;
 		this.group = group;
 		this.exam  = exam;
-	}
-
-	public static int getExamNumber(){
-		return examNumber;
 	}
 
 	public String getSnp(){
