@@ -6,17 +6,31 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import plagamedicum.ppvis.lab2s4.Controller.Controller;
 
-public class MainScene {
+import java.io.File;
+
+public class View {
     private Scene        scene;
 	private VBox         root;
 	private TableElement tableElement;
     private Controller   controller;
+    private Stage        stage;
 
-	public MainScene(Controller controller) {
+	public View(Controller controller) {
+        final int    STAGE_WIDTH  = 1460,
+                     STAGE_HEIGHT = 750;
+        final String STAGE_TITLE  = "Lab2";
+
         this.controller = controller;
         init();
+        stage = new Stage();
+        stage.setWidth (STAGE_WIDTH);
+        stage.setHeight(STAGE_HEIGHT);
+        stage.setTitle (STAGE_TITLE);
+        stage.setScene(scene);
 	}
 
 	private void init(){
@@ -103,22 +117,41 @@ public class MainScene {
         closeAppMenuItem.setOnAction(ae -> Platform.exit());
     }
 	
-	public Scene get() {
+	public Scene getScene() {
 		return scene;
 	}
 
+	public Stage getStage(){
+	    return stage;
+    }
+
 	private void newItem(){
 	    Alert newDocWindow = new Alert(Alert.AlertType.NONE);
-
+	    newDocWindow.setTitle("Стварыць новы дакумент");
+        //newDocWindow.getDialogPane().setContent();
 	    newDocWindow.show();
     }
 
-    private void openDoc(){
+    private File openDoc(){
+        FileChooser openDocChooser = new FileChooser();
+        openDocChooser.setTitle("Адкрыць дакумент");
+        openDocChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Усе файлы", "*.*"),
+                new FileChooser.ExtensionFilter("XML-дакумент", "*.xml")
+        );
 
+        return openDocChooser.showOpenDialog(stage);
     }
 
-    private void saveDoc(){
+    private File saveDoc(){
+        FileChooser saveDocChooser = new FileChooser();
+        saveDocChooser.setTitle("Захаваць дакумент");
+        saveDocChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Усе файлы", "*.*"),
+                new FileChooser.ExtensionFilter("XML-дакумент", "*.xml")
+        );
 
+        return saveDocChooser.showSaveDialog(stage);
     }
 
 	private void addItem(){
