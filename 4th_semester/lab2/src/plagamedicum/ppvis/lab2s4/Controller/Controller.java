@@ -18,4 +18,16 @@ public class Controller {
     public int getExamNumber(){
         return model.getExamNumber();
     }
+
+    public void setExamNumber(int examNumber){
+        model.setExamNumber(examNumber);
+    }
+
+    public void openFile(){
+
+    }
+
+    public void saveFile(){
+
+    }
 }

@@ -3,23 +3,31 @@ package plagamedicum.ppvis.lab2s4.model;
 import java.util.ArrayList;
 
 public class Student {
-	private String 	snp,
-					group;
+	private SNP 	snp;
+	private String 	group;
 	private ArrayList<Exam> exam;
 
-	public Student(String snp, String group,
+	public Student(SNP snp, String group,
 				   ArrayList<Exam> exam){
 		this.snp   = snp;
 		this.group = group;
 		this.exam  = exam;
 	}
 
-	public String getSnp(){
+	public SNP getSnp(){
 		return snp;
 	}
 
-	public void setSnp(String snp){
+	public void setSnp(SNP snp){
 		this.snp = snp;
+	}
+
+	public String getAlignSnp(){
+		return snp.getSurname()+" "+snp.getName()+" "+snp.getPatronym();
+	}
+
+	public void setAlignSnp(String alignSnp){
+		this.snp = new SNP(alignSnp);
 	}
 
 	public String getGroup(){

@@ -1,6 +1,7 @@
 package plagamedicum.ppvis.lab2s4.view;
 
 import javafx.application.Platform;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
@@ -13,6 +14,7 @@ import plagamedicum.ppvis.lab2s4.Controller.Controller;
 import java.io.File;
 
 public class View {
+    private final String REGEX_DIGITS_ONLY = "^\\d+$ ";
     private Scene        scene;
 	private VBox         root;
 	private TableElement tableElement;
@@ -22,50 +24,50 @@ public class View {
 	public View(Controller controller) {
         final int    STAGE_WIDTH  = 1460,
                      STAGE_HEIGHT = 750;
-        final String STAGE_TITLE  = "Lab2";
+        final String STAGE_TITLE_TEXT = "Lab2";
 
         this.controller = controller;
-        init();
+        initWindow();
         stage = new Stage();
         stage.setWidth (STAGE_WIDTH);
         stage.setHeight(STAGE_HEIGHT);
-        stage.setTitle (STAGE_TITLE);
+        stage.setTitle (STAGE_TITLE_TEXT);
         stage.setScene(scene);
 	}
 
-	private void init(){
-        final int    TABLE_HEIGHT                 = 600;
-        final String FILE_MENU_LABEL              = "Файл",
-                     EDIT_MENU_LABEL              = "Рэдагаваць",
-                     NEW_DOC_MENU_ITEM_LABEL      = "Новы дакумент",
-                     OPEN_DOC_MENU_ITEM_LABEL     = "Адкрыць дакумент",
-                     SAVE_DOC_MENU_ITEM_LABEL     = "Захаваць дакумент",
-                     ADD_ITEM_MENU_ITEM_LABEL     = "Дадаць запіс",
-                     SEARCH_ITEMS_MENU_ITEM_LABEL = "Шукаць запісы",
-                     DELETE_ITEMS_MENU_ITEM_LABEL = "Выдаліць запісы",
-                     CLOSE_APP_MENU_ITEM_LABEL    = "Выйсці",
-                     NEW_DOC_BUTTON_LABEL         = "Новы дакумент",
-                     OPEN_DOC_BUTTON_LABEL        = "Адкрыць дакумент",
-                     SAVE_DOC_BUTTON_LABEL        = "Захаваць дакумент",
-                     ADD_BUTTON_LABEL             = "Дадаць запіс",
-                     SEARCH_ITEMS_BUTTON_LABEL    = "Шукаць запісы",
-                     DELETE_ITEMS_BUTTON_LABEL    = "Выдаліць запісы";
-        MenuItem newDocMenuItem      = new MenuItem(NEW_DOC_MENU_ITEM_LABEL),
-                 openDocMenuItem     = new MenuItem(OPEN_DOC_MENU_ITEM_LABEL),
-                 saveMenuItem        = new MenuItem(SAVE_DOC_MENU_ITEM_LABEL),
-                 addItemMenuItem     = new MenuItem(ADD_ITEM_MENU_ITEM_LABEL),
-                 searchItemsMenuItem = new MenuItem(SEARCH_ITEMS_MENU_ITEM_LABEL),
-                 deleteItemsMenuItem = new MenuItem(DELETE_ITEMS_MENU_ITEM_LABEL),
-                 closeAppMenuItem    = new MenuItem(CLOSE_APP_MENU_ITEM_LABEL);
-        Menu     fileMenu            = new Menu(FILE_MENU_LABEL),
-                 editMenu            = new Menu(EDIT_MENU_LABEL);
+	private void initWindow(){
+        final int    TABLE_HEIGHT = 600;
+        final String FILE_MENU_LABEL_TEXT              = "Файл",
+                     EDIT_MENU_LABEL_TEXT              = "Рэдагаваць",
+                     NEW_DOC_MENU_ITEM_LABEL_TEXT      = "Новы дакумент",
+                     OPEN_DOC_MENU_ITEM_LABEL_TEXT     = "Адкрыць дакумент",
+                     SAVE_DOC_MENU_ITEM_LABEL_TEXT     = "Захаваць дакумент",
+                     ADD_ITEM_MENU_ITEM_LABEL_TEXT     = "Дадаць радкі",
+                     SEARCH_ITEMS_MENU_ITEM_LABEL_TEXT = "Шукаць радкі",
+                     DELETE_ITEMS_MENU_ITEM_LABEL_TEXT = "Выдаліць радкі",
+                     CLOSE_APP_MENU_ITEM_LABEL_TEXT    = "Выйсці",
+                     NEW_DOC_BUTTON_LABEL_TEXT         = "Новы дакумент",
+                     OPEN_DOC_BUTTON_LABEL_TEXT        = "Адкрыць дакумент",
+                     SAVE_DOC_BUTTON_LABEL_TEXT        = "Захаваць дакумент",
+                     ADD_ITEMS_BUTTON_LABEL_TEXT       = "Дадаць радкі",
+                     SEARCH_ITEMS_BUTTON_LABEL_TEXT    = "Шукаць радкі",
+                     DELETE_ITEMS_BUTTON_LABEL_TEXT    = "Выдаліць радкі";
+        MenuItem newDocMenuItem      = new MenuItem(NEW_DOC_MENU_ITEM_LABEL_TEXT),
+                 openDocMenuItem     = new MenuItem(OPEN_DOC_MENU_ITEM_LABEL_TEXT),
+                 saveMenuItem        = new MenuItem(SAVE_DOC_MENU_ITEM_LABEL_TEXT),
+                 addItemsMenuItem    = new MenuItem(ADD_ITEM_MENU_ITEM_LABEL_TEXT),
+                 searchItemsMenuItem = new MenuItem(SEARCH_ITEMS_MENU_ITEM_LABEL_TEXT),
+                 deleteItemsMenuItem = new MenuItem(DELETE_ITEMS_MENU_ITEM_LABEL_TEXT),
+                 closeAppMenuItem    = new MenuItem(CLOSE_APP_MENU_ITEM_LABEL_TEXT);
+        Menu     fileMenu            = new Menu(FILE_MENU_LABEL_TEXT),
+                 editMenu            = new Menu(EDIT_MENU_LABEL_TEXT);
         MenuBar  menuBar             = new MenuBar();
-        Button   newDocButton        = new Button(NEW_DOC_BUTTON_LABEL),
-                 openDocButton       = new Button(OPEN_DOC_BUTTON_LABEL),
-                 saveDocButton       = new Button(SAVE_DOC_BUTTON_LABEL),
-                 addItemButton       = new Button(ADD_BUTTON_LABEL),
-                 searchItemsButton   = new Button(SEARCH_ITEMS_BUTTON_LABEL),
-                 deleteItemsButton   = new Button(DELETE_ITEMS_BUTTON_LABEL);
+        Button   newDocButton        = new Button(NEW_DOC_BUTTON_LABEL_TEXT),
+                 openDocButton       = new Button(OPEN_DOC_BUTTON_LABEL_TEXT),
+                 saveDocButton       = new Button(SAVE_DOC_BUTTON_LABEL_TEXT),
+                 addItemsButton      = new Button(ADD_ITEMS_BUTTON_LABEL_TEXT),
+                 searchItemsButton   = new Button(SEARCH_ITEMS_BUTTON_LABEL_TEXT),
+                 deleteItemsButton   = new Button(DELETE_ITEMS_BUTTON_LABEL_TEXT);
         HBox     instruments         = new HBox();
 
         fileMenu.getItems().addAll(
@@ -75,7 +77,7 @@ public class View {
                 new SeparatorMenuItem(),
                 closeAppMenuItem);
         editMenu.getItems().addAll(
-                addItemMenuItem,
+                addItemsMenuItem,
                 new SeparatorMenuItem(),
                 searchItemsMenuItem,
                 deleteItemsMenuItem);
@@ -88,7 +90,7 @@ public class View {
                 openDocButton,
                 saveDocButton,
                 new Separator(),
-                addItemButton,
+                addItemsButton,
                 searchItemsButton,
                 deleteItemsButton);
 
@@ -102,38 +104,70 @@ public class View {
                 tableElement.get());
         scene = new Scene(root);
 
-        newDocButton.setOnAction(ae -> newItem());
-            newDocMenuItem.setOnAction(ae -> newItem());
+        newDocButton.setOnAction(ae -> newDoc());
+            newDocMenuItem.setOnAction(ae -> newDoc());
         openDocButton.setOnAction(ae -> openDoc());
             openDocMenuItem.setOnAction(ae -> openDoc());
         saveDocButton.setOnAction(ae -> saveDoc());
             saveMenuItem.setOnAction(ae -> saveDoc());
-        addItemButton.setOnAction(ae -> addItem());
-            addItemMenuItem.setOnAction(ae -> addItem());
+        addItemsButton.setOnAction(ae -> addItems());
+            addItemsMenuItem.setOnAction(ae -> addItems());
         searchItemsButton.setOnAction(ae -> searchItems());
             searchItemsMenuItem.setOnAction(ae -> searchItems());
         deleteItemsButton.setOnAction(ae -> deleteItems());
             deleteItemsMenuItem.setOnAction(ae -> deleteItems());
         closeAppMenuItem.setOnAction(ae -> Platform.exit());
     }
-	
-	public Scene getScene() {
-		return scene;
-	}
 
 	public Stage getStage(){
 	    return stage;
     }
 
-	private void newItem(){
-	    Alert newDocWindow = new Alert(Alert.AlertType.NONE);
-	    newDocWindow.setTitle("Стварыць новы дакумент");
-        //newDocWindow.getDialogPane().setContent();
+	private void newDoc(){
+	    final String OK_BUTTON_LABEL_TEXT      = "Далей",
+                     EXAM_NUM_LABEL_TEXT       = "Колькасць экзаменаў: ",
+                     INFO_LABEL_TEXT           = "\nПерадвызначаная колькасць экзаменаў раўняецца 8.\n\n" +
+                                                 "Калі колькасць экзаменаў не будзе ўведзена карыстальнікам,\n" +
+                                                 "яна будзе прыраўнана перадвызначанаму значэнню.\n ",
+                     NEW_DOC_WINDOW_TITLE_TEXT = "Стварыць новы дакумент";
+	    Label      examNumLabel = new Label(EXAM_NUM_LABEL_TEXT),
+                   infoLabel    = new Label(INFO_LABEL_TEXT);
+	    TextField  examNumField = new TextField();
+	    ButtonType okButton     = new ButtonType(OK_BUTTON_LABEL_TEXT);
+	    HBox       line         = new HBox();
+        VBox       root         = new VBox();
+	    Alert      newDocWindow = new Alert(Alert.AlertType.NONE);
+
+	    line.getChildren().addAll(
+                examNumLabel,
+                examNumField
+        );
+	    infoLabel.setAlignment(Pos.CENTER_LEFT);
+
+	    root.setAlignment(Pos.CENTER);
+	    root.getChildren().addAll(
+	            line,
+	            infoLabel
+        );
+
+        newDocWindow.getButtonTypes().addAll(okButton);
+	    newDocWindow.setTitle(NEW_DOC_WINDOW_TITLE_TEXT);
+        newDocWindow.getDialogPane().setContent(root);
 	    newDocWindow.show();
+
+        ((Button)newDocWindow.getDialogPane().lookupButton(okButton)).setOnAction(ae->{
+	        if(!examNumField.getText().isEmpty() & examNumField.getText().matches(REGEX_DIGITS_ONLY)){
+                controller.setExamNumber(Integer.valueOf(examNumField.getText()));
+            }else{
+	            controller.setExamNumber(8);
+            }
+	        newDocWindow.close();
+        });
     }
 
     private File openDoc(){
         FileChooser openDocChooser = new FileChooser();
+
         openDocChooser.setTitle("Адкрыць дакумент");
         openDocChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Усе файлы", "*.*"),
@@ -145,6 +179,7 @@ public class View {
 
     private File saveDoc(){
         FileChooser saveDocChooser = new FileChooser();
+
         saveDocChooser.setTitle("Захаваць дакумент");
         saveDocChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Усе файлы", "*.*"),
@@ -154,15 +189,47 @@ public class View {
         return saveDocChooser.showSaveDialog(stage);
     }
 
-	private void addItem(){
+	private void addItems(){
+	    final String WINDOW_TITLE_TEXT       = "Дадаць радкі";
+        Alert        addItemWindow;
 
+        addItemWindow = createDialogWithTable();
+        addItemWindow.setTitle(WINDOW_TITLE_TEXT);
+        addItemWindow.show();
     }
 
     private void searchItems(){
+        final String WINDOW_TITLE_TEXT       = "Шукаць радкі";
+        Alert        searchItemsWindow;
 
+        searchItemsWindow = createDialogWithTable();
+        searchItemsWindow.setTitle(WINDOW_TITLE_TEXT);
+        searchItemsWindow.show();
     }
 
     private void deleteItems(){
+        final String WINDOW_TITLE_TEXT       = "Выдаліць радкі";
+        Alert        deleteItemsWindow;
 
+        deleteItemsWindow = createDialogWithTable();
+        deleteItemsWindow.setTitle(WINDOW_TITLE_TEXT);
+        deleteItemsWindow.show();
+    }
+
+    private Alert createDialogWithTable(){
+        final String CLOSE_BUTTON_LABEL_TEXT = "Закрыць";
+        ButtonType   closeButton       = new ButtonType(CLOSE_BUTTON_LABEL_TEXT);
+        TableElement tableElement      = new TableElement(controller);
+        VBox         root              = new VBox();
+        Alert        window            = new Alert(Alert.AlertType.NONE);
+
+        root.setAlignment(Pos.CENTER);
+        root.getChildren().addAll(
+                tableElement.get()
+        );
+        window.getButtonTypes().addAll(closeButton);
+        window.getDialogPane().setContent(root);
+
+        return window;
     }
 }

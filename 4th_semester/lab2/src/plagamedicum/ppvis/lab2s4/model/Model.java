@@ -11,7 +11,7 @@ public class Model {
 
     public Model(){
         studentList = FXCollections.observableArrayList(
-                new Student("Тарашкевіч Браніслаў Адамавіч", "ЛІ19",
+                new Student(new SNP("Тарашкевіч Браніслаў Адамавіч"), "ЛІ19",
                         new ArrayList<>(
                                 FXCollections.observableArrayList(
                                         new Exam("Беларуская мова", 99),
@@ -25,7 +25,7 @@ public class Model {
                                 )
                         )
                 ),
-                new Student("Платонаў Андрэй Платонавіч", "Ч3В3Н7УР",
+                new Student(new SNP("Платонаў Андрэй Платонавіч"), "Ч3В3Н7УР",
                         new ArrayList<>(
                                 FXCollections.observableArrayList(
                                         new Exam("Руская мова", 1918),

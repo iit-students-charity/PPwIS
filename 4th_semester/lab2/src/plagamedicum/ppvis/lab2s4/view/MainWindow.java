@@ -20,3 +20,17 @@ public class MainWindow extends Application {
 		mainStage.show();
 	}
 }
+
+/*TODO:
+*
+* XML parsing
+* 	Save(DOM)
+* 	Open(SAX)
+* Adding
+* pagination
+* Randomization in newDoc
+* Search
+* Delete
+* Adding exceptions Alerts
+*
+* */
