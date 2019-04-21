@@ -12,7 +12,7 @@ public class MainWindow extends Application {
 	
 	@Override
 	public void start(Stage mainStage) {
-		Model 	   model 	  = new Model();
+		Model 	   model 	  = new Model(8, 0);
 		Controller controller = new Controller(model);
 		View 	   view 	  = new View(controller);
 		
@@ -28,7 +28,7 @@ public class MainWindow extends Application {
 * 	Open(SAX)
 * Adding
 * pagination
-* Randomization in newDoc
+* Randomization
 * Search
 * Delete
 * Adding exceptions Alerts

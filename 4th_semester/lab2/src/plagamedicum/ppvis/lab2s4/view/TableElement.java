@@ -13,6 +13,7 @@ import plagamedicum.ppvis.lab2s4.Controller.Controller;
 import plagamedicum.ppvis.lab2s4.model.Student;
 
 public class TableElement {
+    private int                rowsNumber   = 15;
     private TableView<Student> table        = new TableView();
     private HBox               navigator    = new HBox(),
                                pagination   = new HBox();
@@ -91,6 +92,7 @@ public class TableElement {
         tableElement.getChildren().addAll(table,
                                           pagination);
 
+        rowsOnPage.setOnAction(ae -> refreshRows());
         toBeginButton.setOnAction(ae -> goBegin());
         toLeftButton.setOnAction(ae -> goLeft());
         toRightButton.setOnAction(ae -> goRight());
@@ -103,6 +105,10 @@ public class TableElement {
 
     public VBox get(){
         return tableElement;
+    }
+
+    private void refreshRows(){
+        
     }
 
     private void goBegin(){

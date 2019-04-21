@@ -24,6 +24,12 @@ public class SNP {
         }
     }
 
+    public SNP (String surname, String name, String patronym){
+        this.surname = surname;
+        this.name = name;
+        this.patronym = patronym;
+    }
+
     public String getSurname() {
         return surname;
     }

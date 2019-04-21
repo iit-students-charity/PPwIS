@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
 import javafx.scene.layout.VBox;
@@ -14,12 +15,13 @@ import plagamedicum.ppvis.lab2s4.Controller.Controller;
 import java.io.File;
 
 public class View {
-    private final String REGEX_DIGITS_ONLY = "^\\d+$ ";
+    private final int    TABLE_HEIGHT = 600;
+    private final String REGEX_DIGITS_ONLY = "^\\d+$";
     private Scene        scene;
-	private VBox         root;
 	private TableElement tableElement;
     private Controller   controller;
     private Stage        stage;
+    private VBox         root;
 
 	public View(Controller controller) {
         final int    STAGE_WIDTH  = 1460,
@@ -36,7 +38,6 @@ public class View {
 	}
 
 	private void initWindow(){
-        final int    TABLE_HEIGHT = 600;
         final String FILE_MENU_LABEL_TEXT              = "Файл",
                      EDIT_MENU_LABEL_TEXT              = "Рэдагаваць",
                      NEW_DOC_MENU_ITEM_LABEL_TEXT      = "Новы дакумент",
@@ -126,27 +127,32 @@ public class View {
 	private void newDoc(){
 	    final String OK_BUTTON_LABEL_TEXT      = "Далей",
                      EXAM_NUM_LABEL_TEXT       = "Колькасць экзаменаў: ",
-                     INFO_LABEL_TEXT           = "\nПерадвызначаная колькасць экзаменаў раўняецца 8.\n\n" +
-                                                 "Калі колькасць экзаменаў не будзе ўведзена карыстальнікам,\n" +
-                                                 "яна будзе прыраўнана перадвызначанаму значэнню.\n ",
+                     ENTRY_NUM_LABEL_TEXT      = "Згенераваць запісаў: ",
+                     INFO_LABEL_TEXT           = "\nКалі колькасць экзаменаў ці колькасць экзаменаў для генераццыі\n" +
+                                                 "не будзе ўведзена карыстальнікам, яна будзе прыраўнана\n" +
+                                                 "перадвызначанаму значэнню.\n ",
                      NEW_DOC_WINDOW_TITLE_TEXT = "Стварыць новы дакумент";
 	    Label      examNumLabel = new Label(EXAM_NUM_LABEL_TEXT),
+                   entNumLabel  = new Label(ENTRY_NUM_LABEL_TEXT),
                    infoLabel    = new Label(INFO_LABEL_TEXT);
-	    TextField  examNumField = new TextField();
+	    TextField  examNumField = new TextField("8"),
+                   entNumField  = new TextField("0");
 	    ButtonType okButton     = new ButtonType(OK_BUTTON_LABEL_TEXT);
-	    HBox       line         = new HBox();
         VBox       root         = new VBox();
+        GridPane   grid         = new GridPane();
 	    Alert      newDocWindow = new Alert(Alert.AlertType.NONE);
 
-	    line.getChildren().addAll(
+	    grid.addColumn(1,
                 examNumLabel,
-                examNumField
-        );
+                entNumLabel);
+        grid.addColumn(2,
+                examNumField,
+                entNumField);
 	    infoLabel.setAlignment(Pos.CENTER_LEFT);
 
 	    root.setAlignment(Pos.CENTER);
 	    root.getChildren().addAll(
-	            line,
+	            grid,
 	            infoLabel
         );
 
@@ -156,11 +162,17 @@ public class View {
 	    newDocWindow.show();
 
         ((Button)newDocWindow.getDialogPane().lookupButton(okButton)).setOnAction(ae->{
+            int examNumber     = 8,
+                entitiesNumber = 0;
+
 	        if(!examNumField.getText().isEmpty() & examNumField.getText().matches(REGEX_DIGITS_ONLY)){
-                controller.setExamNumber(Integer.valueOf(examNumField.getText()));
-            }else{
-	            controller.setExamNumber(8);
+                examNumber = Integer.valueOf(examNumField.getText());
             }
+            if(!entNumField.getText().isEmpty() & entNumField.getText().matches(REGEX_DIGITS_ONLY)){
+                entitiesNumber = Integer.valueOf(entNumField.getText());
+            }
+            controller.newDoc(examNumber, entitiesNumber);
+            refreshMainTableElement();
 	        newDocWindow.close();
         });
     }
@@ -177,7 +189,7 @@ public class View {
         return openDocChooser.showOpenDialog(stage);
     }
 
-    private File saveDoc(){
+    private void saveDoc(){
         FileChooser saveDocChooser = new FileChooser();
 
         saveDocChooser.setTitle("Захаваць дакумент");
@@ -186,11 +198,11 @@ public class View {
                 new FileChooser.ExtensionFilter("XML-дакумент", "*.xml")
         );
 
-        return saveDocChooser.showSaveDialog(stage);
+        controller.saveDoc(saveDocChooser.showSaveDialog(stage));
     }
 
 	private void addItems(){
-	    final String WINDOW_TITLE_TEXT       = "Дадаць радкі";
+	    final String WINDOW_TITLE_TEXT = "Дадаць радкі";
         Alert        addItemWindow;
 
         addItemWindow = createDialogWithTable();
@@ -199,7 +211,7 @@ public class View {
     }
 
     private void searchItems(){
-        final String WINDOW_TITLE_TEXT       = "Шукаць радкі";
+        final String WINDOW_TITLE_TEXT = "Шукаць радкі";
         Alert        searchItemsWindow;
 
         searchItemsWindow = createDialogWithTable();
@@ -208,7 +220,7 @@ public class View {
     }
 
     private void deleteItems(){
-        final String WINDOW_TITLE_TEXT       = "Выдаліць радкі";
+        final String WINDOW_TITLE_TEXT = "Выдаліць радкі";
         Alert        deleteItemsWindow;
 
         deleteItemsWindow = createDialogWithTable();
@@ -231,5 +243,14 @@ public class View {
         window.getDialogPane().setContent(root);
 
         return window;
+    }
+
+    private void refreshMainTableElement(){
+        this.root.getChildren().remove(tableElement.get());
+        tableElement = new TableElement(controller);
+        tableElement.getTable().setMinHeight(TABLE_HEIGHT);
+        this.root.getChildren().addAll(
+                tableElement.get()
+        );
     }
 }
