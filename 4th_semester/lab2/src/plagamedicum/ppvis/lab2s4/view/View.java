@@ -177,7 +177,7 @@ public class View {
         });
     }
 
-    private File openDoc(){
+    private void openDoc(){
         FileChooser openDocChooser = new FileChooser();
 
         openDocChooser.setTitle("Адкрыць дакумент");
@@ -186,7 +186,11 @@ public class View {
                 new FileChooser.ExtensionFilter("XML-дакумент", "*.xml")
         );
 
-        return openDocChooser.showOpenDialog(stage);
+        try {
+            controller.openDoc(openDocChooser.showOpenDialog(stage));
+        } catch (Exception exception){
+            exception.printStackTrace();
+        }
     }
 
     private void saveDoc(){

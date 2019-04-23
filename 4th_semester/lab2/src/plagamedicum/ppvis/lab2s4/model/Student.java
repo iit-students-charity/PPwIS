@@ -1,11 +1,12 @@
 package plagamedicum.ppvis.lab2s4.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Student {
 	private SNP 	snp;
 	private String 	group;
-	private ArrayList<Exam> exam;
+	private List<Exam> exam;
 
 	public Student(SNP snp, String group,
 				   ArrayList<Exam> exam){
@@ -38,7 +39,7 @@ public class Student {
 		this.group = group;
 	}
 
-	public ArrayList<Exam> getExam(){
+	public List<Exam> getExam(){
 		return exam;
 	}
 

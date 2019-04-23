@@ -1,5 +1,6 @@
 package plagamedicum.ppvis.lab2s4.model;
 
+//TODO: no more javafx
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
