@@ -12,8 +12,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import plagamedicum.ppvis.lab2s4.Controller.Controller;
 
-import java.io.File;
-
 public class View {
     private final int    TABLE_HEIGHT = 600;
     private final String REGEX_DIGITS_ONLY = "^\\d+$";

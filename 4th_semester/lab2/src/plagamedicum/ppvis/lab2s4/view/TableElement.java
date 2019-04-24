@@ -1,6 +1,8 @@
 package plagamedicum.ppvis.lab2s4.view;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -29,6 +31,7 @@ public class TableElement {
                      TO_LEFT_BUTTON_LABEL_TEXT    = "<",
                      TO_RIGHT_BUTTON_LABEL_TEXT   = ">",
                      TO_END_BUTTON_LABEL_TEXT     = ">>";
+        StringProperty sProperty = new SimpleStringProperty();
         Label   pagesCounter  = new Label(" 1/1 ");
         Button  toBeginButton = new Button(TO_BEGIN_BUTTON_LABEL_TEXT),
                 toLeftButton  = new Button(TO_LEFT_BUTTON_LABEL_TEXT),
@@ -48,18 +51,14 @@ public class TableElement {
             final int k = i;
             examNameCol.add(new TableColumn(EXAM_NAME_COLUMN_LABEL_TEXT));
             examNameCol.get(i).setCellValueFactory(p -> {
-                    SimpleStringProperty s = new SimpleStringProperty();
-
-                    s.setValue(String.valueOf(p.getValue().getExamName(k)));
-                    return s;
+                    sProperty.setValue(String.valueOf(p.getValue().getExamName(k)));
+                    return sProperty;
                 }
             );
             examScoreCol.add(new TableColumn(EXAM_SCORE_COLUMN_LABEL_TEXT));
             examScoreCol.get(i).setCellValueFactory(p -> {
-                    SimpleStringProperty s = new SimpleStringProperty();
-
-                    s.setValue(String.valueOf(p.getValue().getExamScore(k)));
-                    return s;
+                    sProperty.setValue(String.valueOf(p.getValue().getExamScore(k)));
+                    return sProperty;
                 }
             );
             examNumCol.add(new TableColumn(Integer.toString(i+1)));
@@ -73,7 +72,7 @@ public class TableElement {
                 snpCol,
                 groupCol,
                 examsCol);
-        table.setItems(controller.getStudentList());
+        table.setItems(FXCollections.observableArrayList(controller.getStudentList()));
 
         navigator.getChildren().addAll(
                 toBeginButton,

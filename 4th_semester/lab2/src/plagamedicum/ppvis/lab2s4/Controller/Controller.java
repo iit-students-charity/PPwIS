@@ -1,23 +1,20 @@
 package plagamedicum.ppvis.lab2s4.Controller;
 
-import javafx.collections.ObservableList;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
-import plagamedicum.ppvis.lab2s4.model.Model;
-import plagamedicum.ppvis.lab2s4.model.Student;
-
 import javax.xml.parsers.*;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
+import plagamedicum.ppvis.lab2s4.model.Model;
+import plagamedicum.ppvis.lab2s4.model.Student;
 
 public class Controller {
     private Model model;
@@ -26,7 +23,7 @@ public class Controller {
         this.model = model;
     }
 
-    public ObservableList<Student> getStudentList(){
+    public List<Student> getStudentList(){
         return model.getStudentList();
     }
 
@@ -79,7 +76,8 @@ public class Controller {
     }
 
     public void saveDoc(File file) {
-        ObservableList<Student> studentList = model.getStudentList();
+        List<Student> studentList = model.getStudentList();
+        Student                studenti;
         Element                students,
                                student,
                                snp,
@@ -110,9 +108,11 @@ public class Controller {
             doc.appendChild(students);
 
             //TODO: move creations in declarations
+            //TODO: foreach
             for (int i = 0; i < studentList.size(); i++){
+                studenti = studentList.get(i);
+
                 surname = doc.createAttribute("surname");
-                Student studenti = studentList.get(i);
                 surname.setValue(studenti.getSnp().getSurname());
                 name = doc.createAttribute("name");
                 name.setValue(studenti.getSnp().getName());
