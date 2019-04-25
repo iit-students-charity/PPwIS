@@ -18,21 +18,21 @@ public class Model {
 
     private List<Student> generateEntities(int entitiesNumber){
         List<Student> students = new ArrayList<>();
-        List<Exam>    exams    = new ArrayList<>();
+        List<Exam>    examList = new ArrayList<>();
 
         for(int i = 0; i < entitiesNumber; i++){
-            exams.clear();
-            exams.add(new Exam("Беларуская мова", 99));
-            exams.add(new Exam("Мовазнаўства", 10));
-            exams.add(new Exam("Беларуская літаратура", 9));
-            exams.add(new Exam("Матэматыка", 5));
-            exams.add(new Exam("Філязофія", 7));
-            exams.add(new Exam("Сусветная гісорыя", 8));
-            exams.add(new Exam("ППуІС", 0));
-            exams.add(new Exam("Эканоміка", 6));
+            examList.clear();
+            examList.add(new Exam("Беларуская мова", 99));
+            examList.add(new Exam("Мовазнаўства", 10));
+            examList.add(new Exam("Беларуская літаратура", 9));
+            examList.add(new Exam("Матэматыка", 5));
+            examList.add(new Exam("Філязофія", 7));
+            examList.add(new Exam("Сусветная гісорыя", 8));
+            examList.add(new Exam("ППуІС", 0));
+            examList.add(new Exam("Эканоміка", 6));
             students.add(
                     new Student(new SNP("Тарашкевіч Браніслаў Адамавіч"), "ЛІ19",
-                            exams
+                            examList
                     )
             );
         }
@@ -41,6 +41,10 @@ public class Model {
 
     public List<Student> getStudentList(){
         return studentList;
+    }
+
+    public void setStudentList(List<Student> studentList){
+        this.studentList = studentList;
     }
 
     public int getExamNumber(){

@@ -189,6 +189,8 @@ public class View {
         } catch (Exception exception){
             exception.printStackTrace();
         }
+
+        refreshMainTableElement();
     }
 
     private void saveDoc(){
@@ -204,8 +206,23 @@ public class View {
     }
 
 	private void addItems(){
-	    final String WINDOW_TITLE_TEXT = "Дадаць радкі";
+	    final String WINDOW_TITLE_TEXT     = "Дадаць радкі: ",
+                     SURNAME_LABEL_TEXT    = "Прозвішча: ",
+                     NAME_LABEL_TEXT       = "Імя: ",
+                     PATRONYM_LABEL_TEXT   = "Імя па бацьку: ",
+                     GROUP_LABEL_TEXT      = "Назва групы: ",
+                     EXAM_NAME_LABEL_TEXT  = "Назва экзамена: ",
+                     EXAM_SCORE_LABEL_TEXT = "Адзнака: ";
+	    TextField    surnameField,
+                     nameField,
+                     patronymField,
+                     groupField,
+                     examNameField,
+                     examScoreField;
+	    ComboBox<Integer> examComboBox;
         Alert        addItemWindow;
+
+
 
         addItemWindow = createDialogWithTable();
         addItemWindow.setTitle(WINDOW_TITLE_TEXT);

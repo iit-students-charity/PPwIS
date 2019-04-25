@@ -3,9 +3,6 @@ package plagamedicum.ppvis.lab2s4.Controller;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
 import javax.xml.parsers.*;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
@@ -35,57 +32,28 @@ public class Controller {
         this.model = new Model(examNumber, entitiesNumber);
     }
 
-    public void openDoc(File file) throws ParserConfigurationException, SAXException {
-        SAXParserFactory parserFactory;
-        SAXParser        parser;
+    public void addItem(){
 
-        parserFactory = SAXParserFactory.newInstance();
-        parser        = parserFactory.newSAXParser();
     }
 
-    private static class XMLHandler extends DefaultHandler{
-        @Override
-        public void startDocument()throws SAXException{
-
-        }
-
-        @Override
-        public void endDocument() throws SAXException {
-
-        }
-
-        @Override
-        public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException{
-
-        }
-
-        @Override
-        public void endElement(String uri, String localName, String qName) throws SAXException{
-
-        }
-
-        @Override
-        public void characters(char[] ch, int start, int length) throws SAXException{
-
-        }
-
-        @Override
-        public void ignorableWhitespace(char[] ch, int start, int length) throws SAXException{
-            
+    public void openDoc(File file) {
+        try {
+            model.setStudentList(DocOpener.openDoc(file));
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return;
         }
     }
 
     public void saveDoc(File file) {
-        List<Student> studentList = model.getStudentList();
-        Student                studenti;
+        List<Student>          studentList = model.getStudentList();
         Element                students,
                                student,
                                snp,
                                group,
                                exams,
                                exam;
-        Attr                   studentNum,
-                               surname,
+        Attr                   surname,
                                name,
                                patronym,
                                groupName,
@@ -107,11 +75,7 @@ public class Controller {
             students = doc.createElement("students");
             doc.appendChild(students);
 
-            //TODO: move creations in declarations
-            //TODO: foreach
-            for (int i = 0; i < studentList.size(); i++){
-                studenti = studentList.get(i);
-
+            for (Student studenti : studentList){
                 surname = doc.createAttribute("surname");
                 surname.setValue(studenti.getSnp().getSurname());
                 name = doc.createAttribute("name");
@@ -142,9 +106,6 @@ public class Controller {
                 }
 
                 student = doc.createElement("student");
-                studentNum = doc.createAttribute("number");
-                studentNum.setValue(((Integer)i).toString());
-                student.setAttributeNode(studentNum);
                 student.appendChild(snp);
                 student.appendChild(group);
                 student.appendChild(exams);

@@ -3,15 +3,14 @@ package plagamedicum.ppvis.lab2s4.model;
 import java.util.List;
 
 public class Student {
-	private SNP 	snp;
-	private String 	group;
-	private List<Exam> exam;
+	private SNP 	   snp;
+	private String 	   group;
+	private List<Exam> examList;
 
-	public Student(SNP snp, String group,
-				   List<Exam> exam){
-		this.snp   = snp;
-		this.group = group;
-		this.exam  = exam;
+	public Student(SNP snp, String group, List<Exam> exam){
+		this.snp      = snp;
+		this.group    = group;
+		this.examList = exam;
 	}
 
 	public SNP getSnp(){
@@ -38,19 +37,19 @@ public class Student {
 		this.group = group;
 	}
 
-	public List<Exam> getExam(){
-		return exam;
+	public List<Exam> getExamList(){
+		return examList;
 	}
 
-	public void setExam(List<Exam> exam){
-		this.exam = exam;
+	public void setExamList(List<Exam> examList){
+		this.examList = examList;
 	}
 
 	public String getExamName(int i){
-		return exam.get(i).getName();
+		return examList.get(i).getName();
 	}
 
 	public int getExamScore(int i){
-		return exam.get(i).getScore();
+		return examList.get(i).getScore();
 	}
 }

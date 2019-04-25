@@ -23,9 +23,6 @@ public class MainWindow extends Application {
 
 /*TODO:
 *
-* XML parsing
-* 	Save(DOM)
-* 	Open(SAX)
 * Adding
 * pagination
 * Randomization
@@ -33,4 +30,4 @@ public class MainWindow extends Application {
 * Delete
 * Adding exceptions Alerts
 *
-* */
+*/
