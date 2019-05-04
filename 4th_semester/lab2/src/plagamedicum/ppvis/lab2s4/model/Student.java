@@ -7,10 +7,10 @@ public class Student {
 	private String 	   group;
 	private List<Exam> examList;
 
-	public Student(SNP snp, String group, List<Exam> exam){
+	public Student(SNP snp, String group, List<Exam> examList){
 		this.snp      = snp;
 		this.group    = group;
-		this.examList = exam;
+		this.examList = examList;
 	}
 
 	public SNP getSnp(){

@@ -1,0 +1,10 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Lab1",
+            "request": "launch",
+            "mainClass": "plagamedicum.ppvis.lab1s4.Lab1"
+        }
+    ]
+}

@@ -1,19 +1,21 @@
 package plagamedicum.ppvis.lab2s4.view;
 
 import javafx.application.Platform;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import plagamedicum.ppvis.lab2s4.Controller.Controller;
+import plagamedicum.ppvis.lab2s4.model.Exam;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class View {
-    private final int    TABLE_HEIGHT = 600;
     private final String REGEX_DIGITS_ONLY = "^\\d+$";
     private Scene        scene;
 	private TableElement tableElement;
@@ -23,7 +25,7 @@ public class View {
 
 	public View(Controller controller) {
         final int    STAGE_WIDTH  = 1460,
-                     STAGE_HEIGHT = 750;
+                     STAGE_HEIGHT = 781;
         final String STAGE_TITLE_TEXT = "Lab2";
 
         this.controller = controller;
@@ -67,7 +69,7 @@ public class View {
                  addItemsButton      = new Button(ADD_ITEMS_BUTTON_LABEL_TEXT),
                  searchItemsButton   = new Button(SEARCH_ITEMS_BUTTON_LABEL_TEXT),
                  deleteItemsButton   = new Button(DELETE_ITEMS_BUTTON_LABEL_TEXT);
-        HBox     instruments         = new HBox();
+        ToolBar  instruments;
 
         fileMenu.getItems().addAll(
                 newDocMenuItem,
@@ -84,7 +86,7 @@ public class View {
                 fileMenu,
                 editMenu);
 
-        instruments.getChildren().addAll(
+        instruments = new ToolBar(
                 newDocButton,
                 openDocButton,
                 saveDocButton,
@@ -94,7 +96,6 @@ public class View {
                 deleteItemsButton);
 
         tableElement = new TableElement(controller);
-        tableElement.getTable().setMinHeight(TABLE_HEIGHT);
 
         root = new VBox();
         root.getChildren().addAll(
@@ -123,43 +124,37 @@ public class View {
     }
 
 	private void newDoc(){
-	    final String OK_BUTTON_LABEL_TEXT      = "Далей",
-                     EXAM_NUM_LABEL_TEXT       = "Колькасць экзаменаў: ",
+	    final String EXAM_NUM_LABEL_TEXT       = "Колькасць экзаменаў: ",
                      ENTRY_NUM_LABEL_TEXT      = "Згенераваць запісаў: ",
                      INFO_LABEL_TEXT           = "\nКалі колькасць экзаменаў ці колькасць экзаменаў для генераццыі\n" +
                                                  "не будзе ўведзена карыстальнікам, яна будзе прыраўнана\n" +
                                                  "перадвызначанаму значэнню.\n ",
                      NEW_DOC_WINDOW_TITLE_TEXT = "Стварыць новы дакумент";
-	    Label      examNumLabel = new Label(EXAM_NUM_LABEL_TEXT),
-                   entNumLabel  = new Label(ENTRY_NUM_LABEL_TEXT),
-                   infoLabel    = new Label(INFO_LABEL_TEXT);
 	    TextField  examNumField = new TextField("8"),
                    entNumField  = new TextField("0");
-	    ButtonType okButton     = new ButtonType(OK_BUTTON_LABEL_TEXT);
-        VBox       root         = new VBox();
         GridPane   grid         = new GridPane();
-	    Alert      newDocWindow = new Alert(Alert.AlertType.NONE);
+        Pane       root         = new VBox();
+	    Alert      newDocWindow;
 
-	    grid.addColumn(1,
-                examNumLabel,
-                entNumLabel);
-        grid.addColumn(2,
-                examNumField,
-                entNumField);
-	    infoLabel.setAlignment(Pos.CENTER_LEFT);
-
-	    root.setAlignment(Pos.CENTER);
-	    root.getChildren().addAll(
-	            grid,
-	            infoLabel
+	    grid.addRow(0,
+                new Label(EXAM_NUM_LABEL_TEXT),
+                examNumField
+        );
+        grid.addRow(1,
+                new Label(ENTRY_NUM_LABEL_TEXT),
+                entNumField
+        );
+        root.getChildren().addAll(
+                grid,
+                new Label(INFO_LABEL_TEXT)
         );
 
-        newDocWindow.getButtonTypes().addAll(okButton);
+	    newDocWindow = createEmptyCloseableDialog();
 	    newDocWindow.setTitle(NEW_DOC_WINDOW_TITLE_TEXT);
         newDocWindow.getDialogPane().setContent(root);
 	    newDocWindow.show();
 
-        ((Button)newDocWindow.getDialogPane().lookupButton(okButton)).setOnAction(ae->{
+        ((Button)newDocWindow.getDialogPane().lookupButton(newDocWindow.getButtonTypes().get(0))).setOnAction(ae->{
             int examNumber     = 8,
                 entitiesNumber = 0;
 
@@ -170,7 +165,7 @@ public class View {
                 entitiesNumber = Integer.valueOf(entNumField.getText());
             }
             controller.newDoc(examNumber, entitiesNumber);
-            refreshMainTableElement();
+            tableElement.refresh();
 	        newDocWindow.close();
         });
     }
@@ -190,7 +185,7 @@ public class View {
             exception.printStackTrace();
         }
 
-        refreshMainTableElement();
+        tableElement.refresh();
     }
 
     private void saveDoc(){
@@ -206,34 +201,121 @@ public class View {
     }
 
 	private void addItems(){
-	    final String WINDOW_TITLE_TEXT     = "Дадаць радкі: ",
-                     SURNAME_LABEL_TEXT    = "Прозвішча: ",
-                     NAME_LABEL_TEXT       = "Імя: ",
-                     PATRONYM_LABEL_TEXT   = "Імя па бацьку: ",
-                     GROUP_LABEL_TEXT      = "Назва групы: ",
-                     EXAM_NAME_LABEL_TEXT  = "Назва экзамена: ",
-                     EXAM_SCORE_LABEL_TEXT = "Адзнака: ";
-	    TextField    surnameField,
-                     nameField,
-                     patronymField,
-                     groupField,
-                     examNameField,
-                     examScoreField;
-	    ComboBox<Integer> examComboBox;
+        final String WINDOW_TITLE_TEXT      = "Дадаць радкі: ",
+                     SURNAME_LABEL_TEXT     = "Прозвішча: ",
+                     NAME_LABEL_TEXT        = "Імя: ",
+                     PATRONYM_LABEL_TEXT    = "Імя па бацьку: ",
+                     GROUP_LABEL_TEXT       = "Назва групы: ",
+                     EXAM_NUMBER_LABEL_TEXT = "Нумар экзамена: ",
+                     EXAM_NAME_LABEL_TEXT   = "Назва экзамена: ",
+                     EXAM_SCORE_LABEL_TEXT  = "Адзнака: ";
+        List<Exam>   examList       = new ArrayList<>();
+        TextField    surnameField   = new TextField(),
+                     nameField      = new TextField(),
+                     patronymField  = new TextField(),
+                     groupField     = new TextField();
+        class ComboElement{
+            private int       selectedItem;
+            private TextField examNameField,
+                              examScoreField;
+            private ComboBox  comboBox;
+
+            public ComboElement(int selectedItem){
+                this.selectedItem = selectedItem;
+                this.comboBox     = new ComboBox<Integer>();
+                this.examNameField  = new TextField("");
+                this.examScoreField = new TextField("0");
+
+                for(int i = 0; i < controller.getExamNumber(); i++){
+                    comboBox.getItems().addAll(((Integer)(i+1)).toString());
+                    examList.add(new Exam("", 0));
+                }
+
+                comboBox.setValue(((Integer)(selectedItem)).toString());
+                refreshSelected();
+            }
+
+            public TextField getExamNameField(){
+                return examNameField;
+            }
+
+            public TextField getExamScoreField(){
+                return examScoreField;
+            }
+
+            public ComboBox get(){
+                return comboBox;
+            }
+
+            public void refreshSelected(){
+                examList.get(selectedItem).setName(examNameField.getText());
+                examList.get(selectedItem).setScore(Integer.valueOf(examScoreField.getText()));
+                selectedItem = comboBox.getSelectionModel().getSelectedIndex();
+
+                examNameField.setText(examList.get(selectedItem).getName());
+                examScoreField.setText(((Integer)examList.get(selectedItem).getScore()).toString());
+            }
+        }
+        ComboElement examComElement = new ComboElement(1);
+	    GridPane     root           = new GridPane();
         Alert        addItemWindow;
 
+        root.addRow(0,
+                new Label(SURNAME_LABEL_TEXT),
+                surnameField
+        );
+        root.addRow(1,
+                new Label(NAME_LABEL_TEXT),
+                nameField
+        );
+        root.addRow(2,
+                new Label(PATRONYM_LABEL_TEXT),
+                patronymField
+        );
+        root.addRow(3,
+                new Label(GROUP_LABEL_TEXT),
+                groupField
+        );
+        root.addRow(4,
+                new Label(EXAM_NUMBER_LABEL_TEXT),
+                examComElement.get()
+        );
+        root.addRow(5,
+                new Label(EXAM_NAME_LABEL_TEXT),
+                examComElement.getExamNameField()
+        );
+        root.addRow(6,
+                new Label(EXAM_SCORE_LABEL_TEXT),
+                examComElement.getExamScoreField()
+        );
 
-
-        addItemWindow = createDialogWithTable();
+        addItemWindow = createEmptyCloseableDialog();
         addItemWindow.setTitle(WINDOW_TITLE_TEXT);
+        addItemWindow.getDialogPane().setContent(root);
         addItemWindow.show();
+
+        examComElement.get().setOnAction(ae -> {
+            examComElement.refreshSelected();
+        });
+        ((Button)addItemWindow.getDialogPane().lookupButton(addItemWindow.getButtonTypes().get(0))).setOnAction(ae->{
+            controller.addStudent(
+                    surnameField.getText(),
+                    nameField.getText(),
+                    patronymField.getText(),
+                    groupField.getText(),
+                    examList
+            );
+            examComElement.refreshSelected();
+            tableElement.refresh();
+            addItemWindow.close();
+        });
     }
 
     private void searchItems(){
         final String WINDOW_TITLE_TEXT = "Шукаць радкі";
         Alert        searchItemsWindow;
 
-        searchItemsWindow = createDialogWithTable();
+        searchItemsWindow = createEmptyCloseableDialog();
         searchItemsWindow.setTitle(WINDOW_TITLE_TEXT);
         searchItemsWindow.show();
     }
@@ -242,34 +324,17 @@ public class View {
         final String WINDOW_TITLE_TEXT = "Выдаліць радкі";
         Alert        deleteItemsWindow;
 
-        deleteItemsWindow = createDialogWithTable();
+        deleteItemsWindow = createEmptyCloseableDialog();
         deleteItemsWindow.setTitle(WINDOW_TITLE_TEXT);
         deleteItemsWindow.show();
     }
 
-    private Alert createDialogWithTable(){
-        final String CLOSE_BUTTON_LABEL_TEXT = "Закрыць";
+    private Alert createEmptyCloseableDialog(){
+        final String CLOSE_BUTTON_LABEL_TEXT = "Далей";
         ButtonType   closeButton       = new ButtonType(CLOSE_BUTTON_LABEL_TEXT);
-        TableElement tableElement      = new TableElement(controller);
-        VBox         root              = new VBox();
         Alert        window            = new Alert(Alert.AlertType.NONE);
 
-        root.setAlignment(Pos.CENTER);
-        root.getChildren().addAll(
-                tableElement.get()
-        );
         window.getButtonTypes().addAll(closeButton);
-        window.getDialogPane().setContent(root);
-
         return window;
-    }
-
-    private void refreshMainTableElement(){
-        this.root.getChildren().remove(tableElement.get());
-        tableElement = new TableElement(controller);
-        tableElement.getTable().setMinHeight(TABLE_HEIGHT);
-        this.root.getChildren().addAll(
-                tableElement.get()
-        );
     }
 }

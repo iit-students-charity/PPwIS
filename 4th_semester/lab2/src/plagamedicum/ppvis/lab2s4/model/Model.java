@@ -47,6 +47,10 @@ public class Model {
         this.studentList = studentList;
     }
 
+    public void addStudent(Student student){
+        studentList.add(student);
+    }
+
     public int getExamNumber(){
         return examNumber;
     }

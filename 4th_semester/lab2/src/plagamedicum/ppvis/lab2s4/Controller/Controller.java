@@ -10,7 +10,10 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.util.List;
+
+import plagamedicum.ppvis.lab2s4.model.Exam;
 import plagamedicum.ppvis.lab2s4.model.Model;
+import plagamedicum.ppvis.lab2s4.model.SNP;
 import plagamedicum.ppvis.lab2s4.model.Student;
 
 public class Controller {
@@ -32,8 +35,10 @@ public class Controller {
         this.model = new Model(examNumber, entitiesNumber);
     }
 
-    public void addItem(){
-
+    public void addStudent(String surname, String name, String patronym, String group, List<Exam> examList){
+        model.addStudent(
+                new Student(new SNP(surname, name, patronym), group, examList)
+        );
     }
 
     public void openDoc(File file) {

@@ -23,8 +23,6 @@ public class MainWindow extends Application {
 
 /*TODO:
 *
-* Adding
-* pagination
 * Randomization
 * Search
 * Delete
