@@ -130,7 +130,7 @@ public class Controller {
     }
 
     public List search(boolean delete, int selectedItem, List<String> criteriaList){
-        final String S_N_P        = criteriaList.get(0);
+        final String SURNAME        = criteriaList.get(0);
         int          studentIndex = 0;
         List<Student> studentList = getStudentList();
         List          resultList;
@@ -158,7 +158,7 @@ public class Controller {
                         }
                     }
                     studentsAverageScore = (studentsMaximalScore + studentsMinimalScore) / 2;
-                    if(student.getAlignSnp().equals(S_N_P) && studentsAverageScore == Integer.valueOf(AVERAGE_SCORE)){
+                    if(student.getSurname().equals(SURNAME) && studentsAverageScore == Integer.valueOf(AVERAGE_SCORE)){
                         if(delete){
                             resultList.add(studentIndex);
                         }else{
@@ -172,7 +172,7 @@ public class Controller {
                 final String GROUP = criteriaList.get(2);
 
                 for(Student student:studentList) {
-                    if (student.getAlignSnp().equals(S_N_P) & student.getGroup().equals(GROUP)) {
+                    if (student.getSurname().equals(SURNAME) & student.getGroup().equals(GROUP)) {
                         if(delete){
                             resultList.add(studentIndex);
                         }else{
@@ -193,7 +193,7 @@ public class Controller {
                             examExists = true;
                         }
                     }
-                    if (student.getAlignSnp().equals(S_N_P) && examExists) {
+                    if (student.getSurname().equals(SURNAME) && examExists) {
                         if(delete){
                             resultList.add(studentIndex);
                         }else{

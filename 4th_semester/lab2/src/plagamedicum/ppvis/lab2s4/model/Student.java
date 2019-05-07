@@ -17,6 +17,10 @@ public class Student {
 		return snp;
 	}
 
+	public String getSurname(){
+		return snp.getSurname();
+	}
+
 	public void setSnp(SNP snp){
 		this.snp = snp;
 	}

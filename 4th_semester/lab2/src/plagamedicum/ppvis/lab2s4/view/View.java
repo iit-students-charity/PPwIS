@@ -423,28 +423,28 @@ public class View {
         }
 
         private void initCriteriaLists(){
-            final String SNP_LABEL_TEXT           = "Прозвішча: ",
+            final String SURNAME_LABEL_TEXT       = "Прозвішча: ",
                          GROUP_LABEL_TEXT         = "Нумар групы: ",
                          DISCIPLINE_LABEL_TEXT    = "Дысцыпліна: ",
                          MINIMAL_SCORE_LABEL_TEXT = "Мінімальная адзн.: ",
                          MAXIMAL_SCORE_LABEL_TEXT = "Максімальная адзн.: ";
-            TextField    snpField                 = new TextField();
+            TextField    surnameField             = new TextField();
 
             criteria1LabelList.add(new Label(MINIMAL_SCORE_LABEL_TEXT));
             criteria1LabelList.add(new Label(MAXIMAL_SCORE_LABEL_TEXT));
-            criteria1LabelList.add(new Label(SNP_LABEL_TEXT));
+            criteria1LabelList.add(new Label(SURNAME_LABEL_TEXT));
             criteria1FieldList.add(new TextField());
             criteria1FieldList.add(new TextField());
-            criteria1FieldList.add(snpField);
+            criteria1FieldList.add(surnameField);
             criteria2LabelList.add(new Label(GROUP_LABEL_TEXT));
-            criteria2LabelList.add(new Label(SNP_LABEL_TEXT));
+            criteria2LabelList.add(new Label(SURNAME_LABEL_TEXT));
             criteria2FieldList.add(new TextField());
-            criteria2FieldList.add(snpField);
-            criteria3LabelList.add(new Label(SNP_LABEL_TEXT));
+            criteria2FieldList.add(surnameField);
+            criteria3LabelList.add(new Label(SURNAME_LABEL_TEXT));
             criteria3LabelList.add(new Label(DISCIPLINE_LABEL_TEXT));
             criteria3LabelList.add(new Label(MINIMAL_SCORE_LABEL_TEXT));
             criteria3LabelList.add(new Label(MAXIMAL_SCORE_LABEL_TEXT));
-            criteria3FieldList.add(snpField);
+            criteria3FieldList.add(surnameField);
             criteria3FieldList.add(new TextField());
             criteria3FieldList.add(new TextField());
             criteria3FieldList.add(new TextField());
@@ -455,10 +455,10 @@ public class View {
         }
 
         public List search(boolean delete){
-            int minimalScore,
-                maximalScore,
-                disciplineMinimalScore,
-                disciplineMaximalScore;
+            int  minimalScore,
+                 maximalScore,
+                 disciplineMinimalScore,
+                 disciplineMaximalScore;
             List criteriaList;
 
             try{

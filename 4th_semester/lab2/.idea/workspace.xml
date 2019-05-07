@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/Controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/Controller/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/MainWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/model/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/model/Student.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/view/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/view/View.java" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
@@ -68,8 +68,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/MainWindow.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" column="43" lean-forward="true" selection-start-line="6" selection-start-column="43" selection-end-line="6" selection-end-column="43" />
+            <state>
+              <caret column="34" lean-forward="true" selection-start-column="34" selection-end-column="34" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -93,16 +93,24 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/Controller/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="429">
-              <caret line="38" column="107" selection-start-line="38" selection-start-column="107" selection-end-line="38" selection-end-column="107" />
+            <state relative-caret-position="938">
+              <caret line="181" column="35" lean-forward="true" selection-start-line="181" selection-start-column="35" selection-end-line="181" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#addStudent#0;class#Controller#0" />
                 <element signature="method#openDoc#0;class#Controller#0" />
                 <element signature="method#saveDoc#0;class#Controller#0" />
-                <element signature="method#search#0;class#Controller#0" />
                 <element signature="method#delete#0;class#Controller#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/model/Student.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="289">
+              <caret line="20" column="32" selection-start-line="20" selection-start-column="32" selection-end-line="20" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -110,8 +118,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/view/View.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="481">
-              <caret line="210" column="27" selection-start-line="210" selection-start-column="27" selection-end-line="210" selection-end-column="27" />
+            <state relative-caret-position="256">
+              <caret line="336" column="51" lean-forward="true" selection-start-line="336" selection-start-column="51" selection-end-line="336" selection-end-column="51" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#View#0;class#View#0" />
@@ -126,10 +134,9 @@
                 <element signature="e#10441#10442#0" expanded="true" />
                 <element signature="e#10477#10478#0" expanded="true" />
                 <element signature="e#10524#10525#0" expanded="true" />
-                <element signature="class#RequestElement#0;class#View#0" />
                 <element signature="method#RequestElement#0;class#RequestElement#0;class#View#0" />
                 <element signature="method#switchPreset#0;class#RequestElement#0;class#View#0" />
-                <element signature="method#initCriteriaBoxes#0;class#RequestElement#0;class#View#0" />
+                <element signature="method#initCriteriaLists#0;class#RequestElement#0;class#View#0" />
                 <element signature="method#search#0;class#RequestElement#0;class#View#0" />
                 <element signature="method#searchItems#0;class#View#0" />
                 <element signature="method#deleteItems#0;class#View#0" />
@@ -202,9 +209,9 @@
         <option value="$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/view/MainWindow.java" />
         <option value="$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/model/RandomizationData.java" />
         <option value="$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/view/TableElement.java" />
+        <option value="$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/MainWindow.java" />
         <option value="$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/model/Student.java" />
         <option value="$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/Controller/Controller.java" />
-        <option value="$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/MainWindow.java" />
         <option value="$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/view/View.java" />
       </list>
     </option>
@@ -446,12 +453,12 @@
       <workItem from="1556283735344" duration="7529000" />
       <workItem from="1556832020839" duration="315000" />
       <workItem from="1556868820749" duration="61647000" />
-      <workItem from="1557151928723" duration="22852000" />
+      <workItem from="1557151928723" duration="23647000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="289363000" />
+    <option name="totallyTimeSpent" value="290158000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -464,7 +471,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="878" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.14966443" />
       <window_info id="Structure" order="1" weight="0.25" />
@@ -809,23 +815,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/model/SNP.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="137">
-          <caret line="34" column="5" lean-forward="true" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/model/Student.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="32" selection-start-line="32" selection-end-line="32" />
-          <folding>
-            <element signature="e#723#724#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_192/javafx-src.zip!/javafx/scene/control/TextInputControl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
@@ -839,6 +828,55 @@
           <caret line="105" selection-start-line="105" selection-end-line="105" />
           <folding>
             <element signature="e#3264#3265#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/model/Model.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="40" selection-start-column="40" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#generateEntities#0;class#Model#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/MainWindow.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="34" lean-forward="true" selection-start-column="34" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/model/SNP.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="415">
+          <caret line="34" column="5" lean-forward="true" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/model/Student.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="20" column="32" selection-start-line="20" selection-start-column="32" selection-end-line="20" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/Controller/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="938">
+          <caret line="181" column="35" lean-forward="true" selection-start-line="181" selection-start-column="35" selection-end-line="181" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#addStudent#0;class#Controller#0" />
+            <element signature="method#openDoc#0;class#Controller#0" />
+            <element signature="method#saveDoc#0;class#Controller#0" />
+            <element signature="method#delete#0;class#Controller#0" />
           </folding>
         </state>
       </provider>
@@ -863,46 +901,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/model/Model.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="40" selection-start-column="40" selection-end-column="40" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#generateEntities#0;class#Model#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/MainWindow.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="43" lean-forward="true" selection-start-line="6" selection-start-column="43" selection-end-line="6" selection-end-column="43" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/Controller/Controller.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="429">
-          <caret line="38" column="107" selection-start-line="38" selection-start-column="107" selection-end-line="38" selection-end-column="107" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#addStudent#0;class#Controller#0" />
-            <element signature="method#openDoc#0;class#Controller#0" />
-            <element signature="method#saveDoc#0;class#Controller#0" />
-            <element signature="method#search#0;class#Controller#0" />
-            <element signature="method#delete#0;class#Controller#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/plagamedicum/ppvis/lab2s4/view/View.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="481">
-          <caret line="210" column="27" selection-start-line="210" selection-start-column="27" selection-end-line="210" selection-end-column="27" />
+        <state relative-caret-position="256">
+          <caret line="336" column="51" lean-forward="true" selection-start-line="336" selection-start-column="51" selection-end-line="336" selection-end-column="51" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#View#0;class#View#0" />
@@ -917,10 +919,9 @@
             <element signature="e#10441#10442#0" expanded="true" />
             <element signature="e#10477#10478#0" expanded="true" />
             <element signature="e#10524#10525#0" expanded="true" />
-            <element signature="class#RequestElement#0;class#View#0" />
             <element signature="method#RequestElement#0;class#RequestElement#0;class#View#0" />
             <element signature="method#switchPreset#0;class#RequestElement#0;class#View#0" />
-            <element signature="method#initCriteriaBoxes#0;class#RequestElement#0;class#View#0" />
+            <element signature="method#initCriteriaLists#0;class#RequestElement#0;class#View#0" />
             <element signature="method#search#0;class#RequestElement#0;class#View#0" />
             <element signature="method#searchItems#0;class#View#0" />
             <element signature="method#deleteItems#0;class#View#0" />
