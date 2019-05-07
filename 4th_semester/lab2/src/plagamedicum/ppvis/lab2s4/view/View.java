@@ -5,12 +5,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import plagamedicum.ppvis.lab2s4.Controller.Controller;
 import plagamedicum.ppvis.lab2s4.model.Exam;
+import plagamedicum.ppvis.lab2s4.model.Student;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -165,7 +167,13 @@ public class View {
                 entitiesNumber = Integer.valueOf(entNumField.getText());
             }
             controller.newDoc(examNumber, entitiesNumber);
-            tableElement.refresh();
+
+            this.root.getChildren().remove(tableElement.get());
+            tableElement = new TableElement(controller);
+            this.root.getChildren().addAll(
+                    tableElement.get()
+            );
+
 	        newDocWindow.close();
         });
     }
@@ -233,6 +241,8 @@ public class View {
 
                 comboBox.setValue(((Integer)(selectedItem)).toString());
                 refreshSelected();
+
+                comboBox.setOnAction(ae -> refreshSelected());
             }
 
             public TextField getExamNameField(){
@@ -294,9 +304,6 @@ public class View {
         addItemWindow.getDialogPane().setContent(root);
         addItemWindow.show();
 
-        examComElement.get().setOnAction(ae -> {
-            examComElement.refreshSelected();
-        });
         ((Button)addItemWindow.getDialogPane().lookupButton(addItemWindow.getButtonTypes().get(0))).setOnAction(ae->{
             controller.addStudent(
                     surnameField.getText(),
@@ -311,22 +318,263 @@ public class View {
         });
     }
 
+    private class RequestElement{
+        private int          selectedItem;
+        private ComboBox     criteriaComBox;
+        private Button       searchButton;
+        private TableElement tableElement;
+        private GridPane     grid;
+        private Pane         criteriaChooser,
+                             root;
+        private List<Label>     criteria1LabelList,
+                                criteria2LabelList,
+                                criteria3LabelList;
+        private List<TextField> criteria1FieldList,
+                                criteria2FieldList,
+                                criteria3FieldList;
+
+        public RequestElement(){
+            final String CRITERIA_1 = "СЯРЭДНЯЯ АДЗН. І ПРОЗВІШЧА",
+                         CRITERIA_2 = "НАЗВА ГРУПЫ І ПРОЗВІШЧА",
+                         CRITERIA_3 = "ПРОЗВІШЧА І АДЗН. ПА ДЫСЦЫПЛІНЕ";
+
+            criteriaComBox = new ComboBox();
+            criteriaComBox.getItems().addAll(
+                    CRITERIA_1,
+                    CRITERIA_2,
+                    CRITERIA_3
+            );
+            criteriaComBox.setValue(CRITERIA_1);
+            searchButton    = new Button("Шукаць");
+            criteriaChooser = new HBox();
+            criteriaChooser.getChildren().addAll(
+                    new Label("Крытэрый пошуку: "),
+                    criteriaComBox,
+                    searchButton
+            );
+
+            criteria1LabelList = new ArrayList<>();
+            criteria1FieldList = new ArrayList<>();
+            criteria2LabelList = new ArrayList<>();
+            criteria2FieldList = new ArrayList<>();
+            criteria3LabelList = new ArrayList<>();
+            criteria3FieldList = new ArrayList<>();
+            initCriteriaLists();
+            grid              = new GridPane();
+            switchPreset();
+
+            tableElement = new TableElement(controller);
+
+            this.root = new VBox();
+            this.root.getChildren().addAll(
+                    new Separator(),
+                    new Separator(),
+                    criteriaChooser,
+                    grid,
+                    new Separator(),
+                    new Separator(),
+                    tableElement.get(),
+                    new Separator(),
+                    new Separator(),
+                    new Separator()
+            );
+
+            criteriaComBox.setOnAction(ae -> switchPreset());
+        }
+
+        private void switchPreset(){
+            grid.getChildren().clear();
+            selectedItem = criteriaComBox.getSelectionModel().getSelectedIndex();
+            switch (selectedItem){
+                case 0:
+                    for(int i = 0; i < 2; i++){
+                        grid.addRow(i,
+                                criteria1LabelList.get(i),
+                                criteria1FieldList.get(i)
+                        );
+                    }
+                    break;
+                case 1:
+                    for(int i = 0; i < 2; i++){
+                        grid.addRow(i,
+                                criteria2LabelList.get(i),
+                                criteria2FieldList.get(i)
+                        );
+                    }
+                    break;
+                case 2:
+                    for(int i = 0; i < 4; i++){
+                        grid.addRow(i,
+                                criteria3LabelList.get(i),
+                                criteria3FieldList.get(i)
+                        );
+                    }
+                    break;
+            }
+        }
+
+        private void initCriteriaLists(){
+            final String SNP_LABEL_TEXT           = "Прозвішча: ",
+                         GROUP_LABEL_TEXT         = "Нумар групы: ",
+                         DISCIPLINE_LABEL_TEXT    = "Дысцыпліна: ",
+                         MINIMAL_SCORE_LABEL_TEXT = "Мінімальная адзн.: ",
+                         MAXIMAL_SCORE_LABEL_TEXT = "Максімальная адзн.: ",
+                         AVERAGE_SCORE_LABEL_TEXT = "Сярэдняя адзн.: ";
+            TextField    snpField                 = new TextField();
+
+            criteria1LabelList.add(new Label(AVERAGE_SCORE_LABEL_TEXT));
+            criteria1LabelList.add(new Label(SNP_LABEL_TEXT));
+            criteria1FieldList.add(new TextField());
+            criteria1FieldList.add(snpField);
+            criteria2LabelList.add(new Label(GROUP_LABEL_TEXT));
+            criteria2LabelList.add(new Label(SNP_LABEL_TEXT));
+            criteria2FieldList.add(new TextField());
+            criteria2FieldList.add(snpField);
+            criteria3LabelList.add(new Label(SNP_LABEL_TEXT));
+            criteria3LabelList.add(new Label(DISCIPLINE_LABEL_TEXT));
+            criteria3LabelList.add(new Label(MINIMAL_SCORE_LABEL_TEXT));
+            criteria3LabelList.add(new Label(MAXIMAL_SCORE_LABEL_TEXT));
+            criteria3FieldList.add(snpField);
+            criteria3FieldList.add(new TextField());
+            criteria3FieldList.add(new TextField());
+            criteria3FieldList.add(new TextField());
+        }
+
+        public Pane get(){
+            return this.root;
+        }
+
+        public Button getSearchButton(){
+            return searchButton;
+        }
+
+        public TableElement getTableElement(){
+            return tableElement;
+        }
+
+        public List search(boolean delete){
+            final String S_N_P        = criteria1FieldList.get(1).getText();
+            int          studentIndex = 0;
+            List<Student> studentList = controller.getStudentList();
+            List          resultList;
+
+            if(delete){
+                resultList = new ArrayList<Integer>();
+            } else {
+                resultList = new ArrayList<Student>();
+            }
+
+            switch (selectedItem){
+                case 0:
+                    final String AVERAGE_SCORE = criteria1FieldList.get(0).getText();
+                    Integer          studentsMinimalScore = 10,
+                                     studentsMaximalScore = 1,
+                                     studentsAverageScore;
+
+                    for(Student student:studentList){
+                        for(Exam exam:student.getExamList()){
+                            if(exam.getScore() < studentsMinimalScore){
+                                studentsMinimalScore = exam.getScore();
+                            }
+                            if (exam.getScore() > studentsMaximalScore){
+                                studentsMaximalScore = exam.getScore();
+                            }
+                        }
+                        studentsAverageScore = (studentsMaximalScore + studentsMinimalScore) / 2;
+                        if(student.getAlignSnp().equals(S_N_P) && studentsAverageScore == Integer.valueOf(AVERAGE_SCORE)){
+                            if(delete){
+                                resultList.add(studentIndex);
+                            }else{
+                                resultList.add(student);
+                            }
+                        }
+                        studentIndex++;
+                    }
+                    break;
+                case 1:
+                    final String GROUP = criteria2FieldList.get(0).getText();
+
+                    for(Student student:studentList) {
+                        if (student.getAlignSnp().equals(S_N_P) & student.getGroup().equals(GROUP)) {
+                            if(delete){
+                                resultList.add(studentIndex);
+                            }else{
+                                resultList.add(student);
+                            }
+                        }
+                        studentIndex++;
+                    }
+                    break;
+                case 2:
+                    final String  DISCIPLINE    = criteria3FieldList.get(1).getText(),
+                                  MINIMAL_SCORE = criteria3FieldList.get(2).getText(),
+                                  MAXIMAL_SCORE = criteria3FieldList.get(3).getText();
+                    final Integer SCORE         = (Integer.valueOf(MINIMAL_SCORE) + Integer.valueOf(MAXIMAL_SCORE)) / 2;
+                    boolean       examExists    = false;
+
+                    for(Student student:studentList) {
+                        for(Exam exam:student.getExamList()){
+                            if(exam.getName().equals(DISCIPLINE) && exam.getScore() == SCORE){
+                                examExists = true;
+                            }
+                        }
+                        if (student.getAlignSnp().equals(S_N_P) && examExists) {
+                            if(delete){
+                                resultList.add(studentIndex);
+                            }else{
+                                resultList.add(student);
+                            }
+                        }
+                        studentIndex++;
+                    }
+                    break;
+            }
+
+            return resultList;
+        }
+    }
+
     private void searchItems(){
         final String WINDOW_TITLE_TEXT = "Шукаць радкі";
         Alert        searchItemsWindow;
+        RequestElement requestElement = new RequestElement();
 
         searchItemsWindow = createEmptyCloseableDialog();
         searchItemsWindow.setTitle(WINDOW_TITLE_TEXT);
+        searchItemsWindow.getDialogPane().setContent(requestElement.get());
         searchItemsWindow.show();
+
+        requestElement.getSearchButton().setOnAction(ae->{
+            List<Student> studentList = requestElement.search(false);
+
+            requestElement.getTableElement().setObservableList(studentList);
+        });
+
+        ((Button)searchItemsWindow.getDialogPane().lookupButton(searchItemsWindow.getButtonTypes().get(0))).setOnAction(ae->{
+            tableElement.refresh();
+            searchItemsWindow.close();
+        });
     }
 
     private void deleteItems(){
         final String WINDOW_TITLE_TEXT = "Выдаліць радкі";
         Alert        deleteItemsWindow;
+        RequestElement requestElement = new RequestElement();
 
         deleteItemsWindow = createEmptyCloseableDialog();
         deleteItemsWindow.setTitle(WINDOW_TITLE_TEXT);
+        deleteItemsWindow.getDialogPane().setContent(requestElement.get());
         deleteItemsWindow.show();
+
+        ((Button)deleteItemsWindow.getDialogPane().lookupButton(deleteItemsWindow.getButtonTypes().get(0))).setOnAction(ae->{
+            List<Integer> indexList = requestElement.search(true);
+
+            for(int i:indexList){
+                controller.getStudentList().remove(i);
+            }
+            tableElement.refresh();
+            deleteItemsWindow.close();
+        });
     }
 
     private Alert createEmptyCloseableDialog(){

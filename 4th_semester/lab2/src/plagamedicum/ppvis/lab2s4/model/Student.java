@@ -22,7 +22,7 @@ public class Student {
 	}
 
 	public String getAlignSnp(){
-		return snp.getSurname()+" "+snp.getName()+" "+snp.getPatronym();
+		return snp.getSurname() + " " + snp.getName() + " " + snp.getPatronym();
 	}
 
 	public void setAlignSnp(String alignSnp){
