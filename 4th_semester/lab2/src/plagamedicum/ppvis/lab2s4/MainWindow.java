@@ -21,13 +21,3 @@ public class MainWindow extends Application {
 		mainStage.show();
 	}
 }
-
-/*TODO:
-*
-*?-	по среднему балу (средний бал задается 2 мя числами нижним пределом и верхним пределом) и фамилии студента;?
-*
-* move from view to controller
-*
-* Adding exceptions Alerts
-*
-*/

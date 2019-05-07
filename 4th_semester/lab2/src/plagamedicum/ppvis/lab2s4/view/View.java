@@ -259,7 +259,11 @@ public class View {
 
             public void refreshSelected(){
                 examList.get(selectedItem).setName(examNameField.getText());
-                examList.get(selectedItem).setScore(Integer.valueOf(examScoreField.getText()));
+                try {
+                    examList.get(selectedItem).setScore(Integer.valueOf(examScoreField.getText()));
+                } catch (NumberFormatException e){
+                    examList.get(selectedItem).setScore(0);
+                }
                 selectedItem = comboBox.getSelectionModel().getSelectedIndex();
 
                 examNameField.setText(examList.get(selectedItem).getName());
@@ -380,6 +384,11 @@ public class View {
             );
 
             criteriaComBox.setOnAction(ae -> switchPreset());
+            searchButton.setOnAction(ae->{
+                List<Student> studentList = search(false);
+
+                tableElement.setObservableList(studentList);
+            });
         }
 
         private void switchPreset(){
@@ -387,7 +396,7 @@ public class View {
             selectedItem = criteriaComBox.getSelectionModel().getSelectedIndex();
             switch (selectedItem){
                 case 0:
-                    for(int i = 0; i < 2; i++){
+                    for(int i = 0; i < 3; i++){
                         grid.addRow(i,
                                 criteria1LabelList.get(i),
                                 criteria1FieldList.get(i)
@@ -418,12 +427,13 @@ public class View {
                          GROUP_LABEL_TEXT         = "Нумар групы: ",
                          DISCIPLINE_LABEL_TEXT    = "Дысцыпліна: ",
                          MINIMAL_SCORE_LABEL_TEXT = "Мінімальная адзн.: ",
-                         MAXIMAL_SCORE_LABEL_TEXT = "Максімальная адзн.: ",
-                         AVERAGE_SCORE_LABEL_TEXT = "Сярэдняя адзн.: ";
+                         MAXIMAL_SCORE_LABEL_TEXT = "Максімальная адзн.: ";
             TextField    snpField                 = new TextField();
 
-            criteria1LabelList.add(new Label(AVERAGE_SCORE_LABEL_TEXT));
+            criteria1LabelList.add(new Label(MINIMAL_SCORE_LABEL_TEXT));
+            criteria1LabelList.add(new Label(MAXIMAL_SCORE_LABEL_TEXT));
             criteria1LabelList.add(new Label(SNP_LABEL_TEXT));
+            criteria1FieldList.add(new TextField());
             criteria1FieldList.add(new TextField());
             criteria1FieldList.add(snpField);
             criteria2LabelList.add(new Label(GROUP_LABEL_TEXT));
@@ -444,93 +454,46 @@ public class View {
             return this.root;
         }
 
-        public Button getSearchButton(){
-            return searchButton;
-        }
-
-        public TableElement getTableElement(){
-            return tableElement;
-        }
-
         public List search(boolean delete){
-            final String S_N_P        = criteria1FieldList.get(1).getText();
-            int          studentIndex = 0;
-            List<Student> studentList = controller.getStudentList();
-            List          resultList;
+            int minimalScore,
+                maximalScore,
+                disciplineMinimalScore,
+                disciplineMaximalScore;
+            List criteriaList;
 
-            if(delete){
-                resultList = new ArrayList<Integer>();
-            } else {
-                resultList = new ArrayList<Student>();
+            try{
+                minimalScore = Integer.parseInt(criteria1FieldList.get(0).getText());
+            } catch (NumberFormatException e){
+                minimalScore = 0;
+            }
+            try{
+                maximalScore = Integer.parseInt(criteria1FieldList.get(1).getText());
+            } catch (NumberFormatException e){
+                maximalScore = 0;
+            }
+            try{
+                disciplineMinimalScore = Integer.parseInt(criteria3FieldList.get(2).getText());
+            } catch (NumberFormatException e){
+                disciplineMinimalScore = 0;
+            }
+            try{
+                disciplineMaximalScore = Integer.parseInt(criteria3FieldList.get(3).getText());
+            } catch (NumberFormatException e){
+                disciplineMaximalScore = 0;
             }
 
-            switch (selectedItem){
-                case 0:
-                    final String AVERAGE_SCORE = criteria1FieldList.get(0).getText();
-                    Integer          studentsMinimalScore = 10,
-                                     studentsMaximalScore = 1,
-                                     studentsAverageScore;
+            criteriaList = new ArrayList<String>();
+            criteriaList.add(criteria1FieldList.get(2).getText());
+            criteriaList.add(
+                    String.valueOf((minimalScore + maximalScore) / 2)
+            );
+            criteriaList.add(criteria2FieldList.get(0).getText());
+            criteriaList.add(criteria3FieldList.get(1).getText());
+            criteriaList.add(
+                    String.valueOf((disciplineMinimalScore + disciplineMaximalScore) / 2)
+            );
 
-                    for(Student student:studentList){
-                        for(Exam exam:student.getExamList()){
-                            if(exam.getScore() < studentsMinimalScore){
-                                studentsMinimalScore = exam.getScore();
-                            }
-                            if (exam.getScore() > studentsMaximalScore){
-                                studentsMaximalScore = exam.getScore();
-                            }
-                        }
-                        studentsAverageScore = (studentsMaximalScore + studentsMinimalScore) / 2;
-                        if(student.getAlignSnp().equals(S_N_P) && studentsAverageScore == Integer.valueOf(AVERAGE_SCORE)){
-                            if(delete){
-                                resultList.add(studentIndex);
-                            }else{
-                                resultList.add(student);
-                            }
-                        }
-                        studentIndex++;
-                    }
-                    break;
-                case 1:
-                    final String GROUP = criteria2FieldList.get(0).getText();
-
-                    for(Student student:studentList) {
-                        if (student.getAlignSnp().equals(S_N_P) & student.getGroup().equals(GROUP)) {
-                            if(delete){
-                                resultList.add(studentIndex);
-                            }else{
-                                resultList.add(student);
-                            }
-                        }
-                        studentIndex++;
-                    }
-                    break;
-                case 2:
-                    final String  DISCIPLINE    = criteria3FieldList.get(1).getText(),
-                                  MINIMAL_SCORE = criteria3FieldList.get(2).getText(),
-                                  MAXIMAL_SCORE = criteria3FieldList.get(3).getText();
-                    final Integer SCORE         = (Integer.valueOf(MINIMAL_SCORE) + Integer.valueOf(MAXIMAL_SCORE)) / 2;
-                    boolean       examExists    = false;
-
-                    for(Student student:studentList) {
-                        for(Exam exam:student.getExamList()){
-                            if(exam.getName().equals(DISCIPLINE) && exam.getScore() == SCORE){
-                                examExists = true;
-                            }
-                        }
-                        if (student.getAlignSnp().equals(S_N_P) && examExists) {
-                            if(delete){
-                                resultList.add(studentIndex);
-                            }else{
-                                resultList.add(student);
-                            }
-                        }
-                        studentIndex++;
-                    }
-                    break;
-            }
-
-            return resultList;
+            return controller.search(delete, selectedItem, criteriaList);
         }
     }
 
@@ -544,16 +507,9 @@ public class View {
         searchItemsWindow.getDialogPane().setContent(requestElement.get());
         searchItemsWindow.show();
 
-        requestElement.getSearchButton().setOnAction(ae->{
-            List<Student> studentList = requestElement.search(false);
-
-            requestElement.getTableElement().setObservableList(studentList);
-        });
-
-        ((Button)searchItemsWindow.getDialogPane().lookupButton(searchItemsWindow.getButtonTypes().get(0))).setOnAction(ae->{
-            tableElement.refresh();
-            searchItemsWindow.close();
-        });
+        ((Button)searchItemsWindow.getDialogPane().lookupButton(searchItemsWindow.getButtonTypes().get(0))).setOnAction(
+                ae-> searchItemsWindow.close()
+        );
     }
 
     private void deleteItems(){
@@ -567,11 +523,7 @@ public class View {
         deleteItemsWindow.show();
 
         ((Button)deleteItemsWindow.getDialogPane().lookupButton(deleteItemsWindow.getButtonTypes().get(0))).setOnAction(ae->{
-            List<Integer> indexList = requestElement.search(true);
-
-            for(int i:indexList){
-                controller.getStudentList().remove(i);
-            }
+            controller.delete(requestElement.search(true));
             tableElement.refresh();
             deleteItemsWindow.close();
         });

@@ -9,6 +9,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import plagamedicum.ppvis.lab2s4.model.Exam;
@@ -125,6 +126,91 @@ public class Controller {
         } catch (Exception  exception){
             exception.printStackTrace();
             return;
+        }
+    }
+
+    public List search(boolean delete, int selectedItem, List<String> criteriaList){
+        final String S_N_P        = criteriaList.get(0);
+        int          studentIndex = 0;
+        List<Student> studentList = getStudentList();
+        List          resultList;
+
+        if(delete){
+            resultList = new ArrayList<Integer>();
+        } else {
+            resultList = new ArrayList<Student>();
+        }
+
+        switch (selectedItem){
+            case 0:
+                final String AVERAGE_SCORE        = criteriaList.get(1);
+                Integer      studentsMinimalScore = 10,
+                             studentsMaximalScore = 1,
+                             studentsAverageScore;
+
+                for(Student student:studentList){
+                    for(Exam exam:student.getExamList()){
+                        if(exam.getScore() < studentsMinimalScore){
+                            studentsMinimalScore = exam.getScore();
+                        }
+                        if (exam.getScore() > studentsMaximalScore){
+                            studentsMaximalScore = exam.getScore();
+                        }
+                    }
+                    studentsAverageScore = (studentsMaximalScore + studentsMinimalScore) / 2;
+                    if(student.getAlignSnp().equals(S_N_P) && studentsAverageScore == Integer.valueOf(AVERAGE_SCORE)){
+                        if(delete){
+                            resultList.add(studentIndex);
+                        }else{
+                            resultList.add(student);
+                        }
+                    }
+                    studentIndex++;
+                }
+                break;
+            case 1:
+                final String GROUP = criteriaList.get(2);
+
+                for(Student student:studentList) {
+                    if (student.getAlignSnp().equals(S_N_P) & student.getGroup().equals(GROUP)) {
+                        if(delete){
+                            resultList.add(studentIndex);
+                        }else{
+                            resultList.add(student);
+                        }
+                    }
+                    studentIndex++;
+                }
+                break;
+            case 2:
+                final String  DISCIPLINE    = criteriaList.get(3);
+                final Integer SCORE         = Integer.valueOf(criteriaList.get(4));
+                boolean       examExists    = false;
+
+                for(Student student:studentList) {
+                    for(Exam exam:student.getExamList()){
+                        if(exam.getName().equals(DISCIPLINE) && exam.getScore() == SCORE){
+                            examExists = true;
+                        }
+                    }
+                    if (student.getAlignSnp().equals(S_N_P) && examExists) {
+                        if(delete){
+                            resultList.add(studentIndex);
+                        }else{
+                            resultList.add(student);
+                        }
+                    }
+                    studentIndex++;
+                }
+                break;
+        }
+
+        return resultList;
+    }
+
+    public void delete(List<Integer> indexList){
+        for(int i:indexList){
+            getStudentList().remove(i);
         }
     }
 }
