@@ -11,26 +11,25 @@ import java.util.List;
 
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import plagamedicum.ppvis.lab2s4.Controller.Controller;
 import plagamedicum.ppvis.lab2s4.model.Student;
 
 public class TableElement {
     private int                rowsOnPage,
                                currentPage = 1,
                                numberOfPages;
-
-    private Label              paginationLabel;
+    private Label              paginationLabel,
+                               itemsCountLabel;
     private Button             resetSearchButton;
     private TextField          rowsOnPageField;
     private TableView<Student> table;
     private ToolBar            navigator,
                                pagination;
     private Pane               tableElement;
-    private Controller         controller;
+    private List<Student> defaultStudentList;
     private ObservableList<Student> studentObsList,
                                     curStudentObsList;
 
-    public TableElement(Controller controller){
+    public TableElement(List<Student> studentList, int examNumber){
         final int    TABLE_HEIGHT                 = 600,
                      TABLE_WIDTH                  = 1460,
                      DEFAULT_ROWS_ON_PAGE_NUMBER  = 17;
@@ -57,19 +56,20 @@ public class TableElement {
                                            examNameColList  = new ArrayList<>(),
                                            examScoreColList = new ArrayList<>();
 
-        this.controller = controller;
-        studentObsList = FXCollections.observableArrayList(controller.getStudentList());
-        curStudentObsList = FXCollections.observableArrayList();
+        defaultStudentList = studentList;
+        studentObsList     = FXCollections.observableArrayList(defaultStudentList);
+        curStudentObsList  = FXCollections.observableArrayList();
 
         snpCol.setMinWidth(300);
         snpCol.setCellValueFactory(new PropertyValueFactory<>("alignSnp"));
         groupCol.setCellValueFactory(new PropertyValueFactory<>("group"));
-        for(int i=0; i < controller.getExamNumber(); i++){
+        for(int i=0; i < examNumber; i++){
             final int k = i;
             examNameCol = new TableColumn(EXAM_NAME_COLUMN_LABEL_TEXT);
             examNameCol.setMinWidth(250);
             examNameColList.add(examNameCol);
-            examNameColList.get(i).setCellValueFactory(p -> {
+            TableColumn<Student, String> studentStringTableColumn = examNameColList.get(i);
+            studentStringTableColumn.setCellValueFactory(p -> {
                     sProperty.setValue(String.valueOf(p.getValue().getExamName(k)));
                     return sProperty;
                 }
@@ -96,12 +96,13 @@ public class TableElement {
                 toEndButton
         );
 
+        itemsCountLabel = new Label("/" + studentObsList.size() + "/");
         rowsOnPageField = new TextField();
         rowsOnPageField.setText(String.valueOf(DEFAULT_ROWS_ON_PAGE_NUMBER));
         resetSearchButton = new Button("Скінуць пошук");
         resetSearchButton.setVisible(false);
         pagination = new ToolBar(
-                new Label("/" + studentObsList.size() + "/"),
+                itemsCountLabel,
                 new Separator(),
                 new Label(ROWS_ON_PAGE_LABEL_TEXT),
                 rowsOnPageField,
@@ -131,7 +132,7 @@ public class TableElement {
         toRightButton.setOnAction(ae -> goRight());
         toEndButton.setOnAction(ae -> goEnd());
         resetSearchButton.setOnAction(ae->{
-            table.setItems(FXCollections.observableArrayList(controller.getStudentList()));
+            resetToDefaultItems();
             resetSearchButton.setVisible(false);
         });
     }
@@ -140,42 +141,25 @@ public class TableElement {
         return tableElement;
     }
 
+    public void rewriteDefaultList(List<Student> list){
+        defaultStudentList = list;
+    }
+
+    public void resetToDefaultItems(){
+        setObservableList(defaultStudentList);
+    }
+
     public void setObservableList(List<Student> list){
-        table.setItems(FXCollections.observableArrayList(list));
+        studentObsList = FXCollections.observableArrayList(list);
         resetSearchButton.setVisible(true);
+
+        setRowsOnPage();
     }
 
     private void setRowsOnPage(){
         rowsOnPage = Integer.valueOf(rowsOnPageField.getText());
-        refreshPage();
-    }
+        currentPage = 1;
 
-    private void refreshPaginationLabel(){
-        numberOfPages = (studentObsList.size() - 1) / rowsOnPage + 1;
-        paginationLabel.setText(currentPage + "/" + numberOfPages);
-    }
-
-    private void refreshPage(){
-        int fromIndex = (currentPage - 1) * rowsOnPage,
-            toIndex   =  currentPage      * rowsOnPage;
-
-        if(toIndex > studentObsList.size()){
-            toIndex = studentObsList.size();
-        }
-
-        curStudentObsList.clear();
-        curStudentObsList.addAll(
-                studentObsList.subList(
-                        fromIndex,
-                        toIndex
-                )
-        );
-
-        refreshPaginationLabel();
-    }
-
-    public void refresh(){
-        studentObsList = FXCollections.observableArrayList(controller.getStudentList());
         refreshPage();
     }
 
@@ -201,5 +185,30 @@ public class TableElement {
     private void goEnd(){
         currentPage = numberOfPages;
         refreshPage();
+    }
+
+    private void refreshPage(){
+        int fromIndex = (currentPage - 1) * rowsOnPage,
+            toIndex   =  currentPage      * rowsOnPage;
+
+        if(toIndex > studentObsList.size()){
+            toIndex = studentObsList.size();
+        }
+
+        curStudentObsList.clear();
+        curStudentObsList.addAll(
+                studentObsList.subList(
+                        fromIndex,
+                        toIndex
+                )
+        );
+
+        refreshPaginationLabel();
+    }
+
+    private void refreshPaginationLabel(){
+        numberOfPages = (studentObsList.size() - 1) / rowsOnPage + 1;
+        paginationLabel.setText(currentPage + "/" + numberOfPages);
+        itemsCountLabel.setText("/" + studentObsList.size() + "/");
     }
 }

@@ -129,20 +129,18 @@ public class Controller {
         }
     }
 
-    public List search(boolean delete, int selectedItem, List<String> criteriaList){
-        final String SURNAME        = criteriaList.get(0);
-        int          studentIndex = 0;
+    public List search(String selectedItem, List<String> criteriaList){
+        final String  SURNAME     = criteriaList.get(0),
+                      CRITERIA_1  = "СЯРЭДНЯЯ АДЗН. І ПРОЗВІШЧА",
+                      CRITERIA_2  = "НАЗВА ГРУПЫ І ПРОЗВІШЧА",
+                      CRITERIA_3  = "ПРОЗВІШЧА І АДЗН. ПА ДЫСЦЫПЛІНЕ";
         List<Student> studentList = getStudentList();
         List          resultList;
 
-        if(delete){
-            resultList = new ArrayList<Integer>();
-        } else {
-            resultList = new ArrayList<Student>();
-        }
+        resultList = new ArrayList<Student>();
 
         switch (selectedItem){
-            case 0:
+            case CRITERIA_1:
                 final String AVERAGE_SCORE        = criteriaList.get(1);
                 Integer      studentsMinimalScore = 10,
                              studentsMaximalScore = 1,
@@ -159,30 +157,20 @@ public class Controller {
                     }
                     studentsAverageScore = (studentsMaximalScore + studentsMinimalScore) / 2;
                     if(student.getSurname().equals(SURNAME) && studentsAverageScore == Integer.valueOf(AVERAGE_SCORE)){
-                        if(delete){
-                            resultList.add(studentIndex);
-                        }else{
-                            resultList.add(student);
-                        }
+                        resultList.add(student);
                     }
-                    studentIndex++;
                 }
                 break;
-            case 1:
+            case CRITERIA_2:
                 final String GROUP = criteriaList.get(2);
 
                 for(Student student:studentList) {
                     if (student.getSurname().equals(SURNAME) & student.getGroup().equals(GROUP)) {
-                        if(delete){
-                            resultList.add(studentIndex);
-                        }else{
-                            resultList.add(student);
-                        }
+                        resultList.add(student);
                     }
-                    studentIndex++;
                 }
                 break;
-            case 2:
+            case CRITERIA_3:
                 final String  DISCIPLINE    = criteriaList.get(3);
                 final Integer SCORE         = Integer.valueOf(criteriaList.get(4));
                 boolean       examExists    = false;
@@ -194,13 +182,8 @@ public class Controller {
                         }
                     }
                     if (student.getSurname().equals(SURNAME) && examExists) {
-                        if(delete){
-                            resultList.add(studentIndex);
-                        }else{
-                            resultList.add(student);
-                        }
+                        resultList.add(student);
                     }
-                    studentIndex++;
                 }
                 break;
         }
@@ -208,9 +191,9 @@ public class Controller {
         return resultList;
     }
 
-    public void delete(List<Integer> indexList){
-        for(int i:indexList){
-            getStudentList().remove(i);
+    public void delete(List<Student> indexList){
+        for(Student student:indexList){
+            getStudentList().remove(student);
         }
     }
 }

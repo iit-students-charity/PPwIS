@@ -21,3 +21,10 @@ public class MainWindow extends Application {
 		mainStage.show();
 	}
 }
+
+/*TODO:
+* Флажки
+* Магические числа
+* Паджинэйшн
+* В начале поиска пустая таблица
+* */

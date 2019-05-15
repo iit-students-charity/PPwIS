@@ -97,7 +97,7 @@ public class View {
                 searchItemsButton,
                 deleteItemsButton);
 
-        tableElement = new TableElement(controller);
+        tableElement = new TableElement(controller.getStudentList(), controller.getExamNumber());
 
         root = new VBox();
         root.getChildren().addAll(
@@ -169,7 +169,7 @@ public class View {
             controller.newDoc(examNumber, entitiesNumber);
 
             this.root.getChildren().remove(tableElement.get());
-            tableElement = new TableElement(controller);
+            tableElement = new TableElement(controller.getStudentList(), controller.getExamNumber());
             this.root.getChildren().addAll(
                     tableElement.get()
             );
@@ -193,7 +193,8 @@ public class View {
             exception.printStackTrace();
         }
 
-        tableElement.refresh();
+        tableElement.rewriteDefaultList(controller.getStudentList());
+        tableElement.resetToDefaultItems();
     }
 
     private void saveDoc(){
@@ -317,13 +318,16 @@ public class View {
                     examList
             );
             examComElement.refreshSelected();
-            tableElement.refresh();
+            tableElement.resetToDefaultItems();
             addItemWindow.close();
         });
     }
 
     private class RequestElement{
-        private int          selectedItem;
+        final String CRITERIA_1 = "СЯРЭДНЯЯ АДЗН. І ПРОЗВІШЧА",
+                     CRITERIA_2 = "НАЗВА ГРУПЫ І ПРОЗВІШЧА",
+                     CRITERIA_3 = "ПРОЗВІШЧА І АДЗН. ПА ДЫСЦЫПЛІНЕ";
+        private String       selectedItem;
         private ComboBox     criteriaComBox;
         private Button       searchButton;
         private TableElement tableElement;
@@ -338,10 +342,6 @@ public class View {
                                 criteria3FieldList;
 
         public RequestElement(){
-            final String CRITERIA_1 = "СЯРЭДНЯЯ АДЗН. І ПРОЗВІШЧА",
-                         CRITERIA_2 = "НАЗВА ГРУПЫ І ПРОЗВІШЧА",
-                         CRITERIA_3 = "ПРОЗВІШЧА І АДЗН. ПА ДЫСЦЫПЛІНЕ";
-
             criteriaComBox = new ComboBox();
             criteriaComBox.getItems().addAll(
                     CRITERIA_1,
@@ -367,7 +367,7 @@ public class View {
             grid              = new GridPane();
             switchPreset();
 
-            tableElement = new TableElement(controller);
+            tableElement = new TableElement(controller.getStudentList(), controller.getExamNumber());
 
             this.root = new VBox();
             this.root.getChildren().addAll(
@@ -385,7 +385,7 @@ public class View {
 
             criteriaComBox.setOnAction(ae -> switchPreset());
             searchButton.setOnAction(ae->{
-                List<Student> studentList = search(false);
+                List<Student> studentList = search();
 
                 tableElement.setObservableList(studentList);
             });
@@ -393,9 +393,9 @@ public class View {
 
         private void switchPreset(){
             grid.getChildren().clear();
-            selectedItem = criteriaComBox.getSelectionModel().getSelectedIndex();
+            selectedItem = criteriaComBox.getSelectionModel().getSelectedItem().toString();
             switch (selectedItem){
-                case 0:
+                case CRITERIA_1:
                     for(int i = 0; i < 3; i++){
                         grid.addRow(i,
                                 criteria1LabelList.get(i),
@@ -403,7 +403,7 @@ public class View {
                         );
                     }
                     break;
-                case 1:
+                case CRITERIA_2:
                     for(int i = 0; i < 2; i++){
                         grid.addRow(i,
                                 criteria2LabelList.get(i),
@@ -411,7 +411,7 @@ public class View {
                         );
                     }
                     break;
-                case 2:
+                case CRITERIA_3:
                     for(int i = 0; i < 4; i++){
                         grid.addRow(i,
                                 criteria3LabelList.get(i),
@@ -454,7 +454,7 @@ public class View {
             return this.root;
         }
 
-        public List search(boolean delete){
+        public List search(){
             int  minimalScore,
                  maximalScore,
                  disciplineMinimalScore,
@@ -493,7 +493,7 @@ public class View {
                     String.valueOf((disciplineMinimalScore + disciplineMaximalScore) / 2)
             );
 
-            return controller.search(delete, selectedItem, criteriaList);
+            return controller.search(selectedItem, criteriaList);
         }
     }
 
@@ -523,8 +523,8 @@ public class View {
         deleteItemsWindow.show();
 
         ((Button)deleteItemsWindow.getDialogPane().lookupButton(deleteItemsWindow.getButtonTypes().get(0))).setOnAction(ae->{
-            controller.delete(requestElement.search(true));
-            tableElement.refresh();
+            controller.delete(requestElement.search());
+            tableElement.resetToDefaultItems();
             deleteItemsWindow.close();
         });
     }
