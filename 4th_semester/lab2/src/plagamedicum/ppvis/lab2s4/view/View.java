@@ -24,6 +24,9 @@ public class View {
     private Controller   controller;
     private Stage        stage;
     private VBox         root;
+    private enum WindowType {
+        DELETE, SEARCH
+    }
 
 	public View(Controller controller) {
         final int    STAGE_WIDTH  = 1460,
@@ -341,7 +344,7 @@ public class View {
                                 criteria2FieldList,
                                 criteria3FieldList;
 
-        public RequestElement(){
+        public RequestElement(WindowType windowType){
             criteriaComBox = new ComboBox();
             criteriaComBox.getItems().addAll(
                     CRITERIA_1,
@@ -351,11 +354,6 @@ public class View {
             criteriaComBox.setValue(CRITERIA_1);
             searchButton    = new Button("Шукаць");
             criteriaChooser = new HBox();
-            criteriaChooser.getChildren().addAll(
-                    new Label("Крытэрый пошуку: "),
-                    criteriaComBox,
-                    searchButton
-            );
 
             criteria1LabelList = new ArrayList<>();
             criteria1FieldList = new ArrayList<>();
@@ -367,21 +365,45 @@ public class View {
             grid              = new GridPane();
             switchPreset();
 
-            tableElement = new TableElement(controller.getStudentList(), controller.getExamNumber());
+            tableElement = new TableElement(new ArrayList<>(), controller.getExamNumber());
 
             this.root = new VBox();
-            this.root.getChildren().addAll(
-                    new Separator(),
-                    new Separator(),
-                    criteriaChooser,
-                    grid,
-                    new Separator(),
-                    new Separator(),
-                    tableElement.get(),
-                    new Separator(),
-                    new Separator(),
-                    new Separator()
-            );
+
+            if(windowType == WindowType.SEARCH){
+                criteriaChooser.getChildren().addAll(
+                        new Label("Крытэрый пошуку: "),
+                        criteriaComBox,
+                        searchButton
+                );
+
+                this.root.getChildren().addAll(
+                        new Separator(),
+                        new Separator(),
+                        criteriaChooser,
+                        grid,
+                        new Separator(),
+                        new Separator(),
+                        tableElement.get(),
+                        new Separator(),
+                        new Separator(),
+                        new Separator()
+                );
+            }
+
+            if(windowType == WindowType.DELETE){
+                criteriaChooser.getChildren().addAll(
+                        new Label("Крытэрый пошуку: "),
+                        criteriaComBox
+                );
+
+                this.root.getChildren().addAll(
+                        new Separator(),
+                        new Separator(),
+                        criteriaChooser,
+                        grid
+                );
+            }
+
 
             criteriaComBox.setOnAction(ae -> switchPreset());
             searchButton.setOnAction(ae->{
@@ -392,11 +414,15 @@ public class View {
         }
 
         private void switchPreset(){
+            final int CRITERIA_1_FIELD_NUMBER = 3,
+                      CRITERIA_2_FIELD_NUMBER = 2,
+                      CRITERIA_3_FIELD_NUMBER = 4;
+
             grid.getChildren().clear();
             selectedItem = criteriaComBox.getSelectionModel().getSelectedItem().toString();
             switch (selectedItem){
                 case CRITERIA_1:
-                    for(int i = 0; i < 3; i++){
+                    for(int i = 0; i < CRITERIA_1_FIELD_NUMBER; i++){
                         grid.addRow(i,
                                 criteria1LabelList.get(i),
                                 criteria1FieldList.get(i)
@@ -404,7 +430,7 @@ public class View {
                     }
                     break;
                 case CRITERIA_2:
-                    for(int i = 0; i < 2; i++){
+                    for(int i = 0; i < CRITERIA_2_FIELD_NUMBER; i++){
                         grid.addRow(i,
                                 criteria2LabelList.get(i),
                                 criteria2FieldList.get(i)
@@ -412,7 +438,7 @@ public class View {
                     }
                     break;
                 case CRITERIA_3:
-                    for(int i = 0; i < 4; i++){
+                    for(int i = 0; i < CRITERIA_3_FIELD_NUMBER; i++){
                         grid.addRow(i,
                                 criteria3LabelList.get(i),
                                 criteria3FieldList.get(i)
@@ -500,7 +526,7 @@ public class View {
     private void searchItems(){
         final String WINDOW_TITLE_TEXT = "Шукаць радкі";
         Alert        searchItemsWindow;
-        RequestElement requestElement = new RequestElement();
+        RequestElement requestElement = new RequestElement(WindowType.SEARCH);
 
         searchItemsWindow = createEmptyCloseableDialog();
         searchItemsWindow.setTitle(WINDOW_TITLE_TEXT);
@@ -515,7 +541,7 @@ public class View {
     private void deleteItems(){
         final String WINDOW_TITLE_TEXT = "Выдаліць радкі";
         Alert        deleteItemsWindow;
-        RequestElement requestElement = new RequestElement();
+        RequestElement requestElement = new RequestElement(WindowType.DELETE);
 
         deleteItemsWindow = createEmptyCloseableDialog();
         deleteItemsWindow.setTitle(WINDOW_TITLE_TEXT);
@@ -523,10 +549,23 @@ public class View {
         deleteItemsWindow.show();
 
         ((Button)deleteItemsWindow.getDialogPane().lookupButton(deleteItemsWindow.getButtonTypes().get(0))).setOnAction(ae->{
+            createDeleteInfoWindow(String.valueOf(requestElement.search().size()));
             controller.delete(requestElement.search());
             tableElement.resetToDefaultItems();
             deleteItemsWindow.close();
         });
+    }
+
+    private void createDeleteInfoWindow(String deleteInfo){
+        final String CLOSE_BUTTON_LABEL_TEXT = "Добра";
+        ButtonType   closeButton       = new ButtonType(CLOSE_BUTTON_LABEL_TEXT);
+	    Alert window  = new Alert(Alert.AlertType.NONE);
+	    VBox  vertice = new VBox();
+
+	    vertice.getChildren().add(new Label("Выдалена " + deleteInfo + " радкоў."));
+	    window.getDialogPane().setContent(vertice);
+        window.getButtonTypes().addAll(closeButton);
+        window.show();
     }
 
     private Alert createEmptyCloseableDialog(){
