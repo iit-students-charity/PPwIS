@@ -1,72 +1,59 @@
 package plagamedicum.ppvis.lab2s4.model;
 
-
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
+import java.util.List;
 
 public class Student {
-	private SimpleStringProperty 	 snp;
-	private SimpleIntegerProperty 	 group;
-	private SimpleStringProperty[]	 exam;
-	private SimpleIntegerProperty[]	 examScore;
+	private SNP 	   snp;
+	private String 	   group;
+	private List<Exam> examList;
 
-	public Student() {
-
+	public Student(SNP snp, String group, List<Exam> examList){
+		this.snp      = snp;
+		this.group    = group;
+		this.examList = examList;
 	}
 
-	public Student(String snp, int group,
-				   String[] exam, int[] examScore){
-		this.snp = new SimpleStringProperty(snp);
-		this.group = new SimpleIntegerProperty(group);
-		this.exam = new SimpleStringProperty[exam.length];
-		this.examScore = new SimpleIntegerProperty[examScore.length];
-		for(int i = 0; i< exam.length; i++){
-			this.exam[i] = new SimpleStringProperty(exam[i]);
-			this.examScore[i] = new SimpleIntegerProperty(examScore[i]);
-		}
-	}
-	
-	public String getSnp(){
-		return snp.get();
+	public SNP getSnp(){
+		return snp;
 	}
 
-	public void setSnp(String snp){
-		this.snp.set(snp);
+	public String getSurname(){
+		return snp.getSurname();
 	}
 
-	public int getGroup(){
-		return group.get();
+	public void setSnp(SNP snp){
+		this.snp = snp;
 	}
 
-	public void setGroup(int group){
-		this.group.set(group);
-	}
-	
-	public String[] getExam(){
-		String[] exam = new String[this.exam.length];
-		for(int i = 0; i< exam.length; i++){
-			exam[i] = this.exam[i].get();
-		}
-		return exam;
+	public String getAlignSnp(){
+		return snp.getSurname() + " " + snp.getName() + " " + snp.getPatronym();
 	}
 
-	public void setExam(String[] exam){
-		for(int i = 0; i < exam.length; i++) {
-			this.exam[i].set(exam[i]);
-		}
+	public void setAlignSnp(String alignSnp){
+		this.snp = new SNP(alignSnp);
 	}
 
-	public int[] getExamScore(){
-		int[] examScore = new int[this.examScore.length];
-		for(int i = 0; i< examScore.length; i++){
-			examScore[i] = this.examScore[i].get();
-		}
-		return examScore;
+	public String getGroup(){
+		return group;
 	}
 
-	public void setExamScore(int[] examScore){
-		for(int i = 0; i < examScore.length; i++) {
-			this.examScore[i].set(examScore[i]);
-		}
+	public void setGroup(String group){
+		this.group = group;
+	}
+
+	public List<Exam> getExamList(){
+		return examList;
+	}
+
+	public void setExamList(List<Exam> examList){
+		this.examList = examList;
+	}
+
+	public String getExamName(int i){
+		return examList.get(i).getName();
+	}
+
+	public int getExamScore(int i){
+		return examList.get(i).getScore();
 	}
 }
